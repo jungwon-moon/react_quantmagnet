@@ -1,0 +1,28 @@
+:root {
+  /* main */
+  --main-color1: #102027;
+  /* hover */
+  --main-color2: #37473f;
+  /*  */
+  --main-color3: #62727b;
+  /* back, bar */
+  /* --main-color4: #d6d6d9; */
+  --main-color4: #ffffff;
+  --main-color5: #ced4da;
+  /* logo */
+  --logo-color: var(--main-color4);
+}
+
+.App {
+  text-align: center;
+  /* margin: 10px; */
+}
+
+.main-page {
+  position: relative;
+  top: 65px;
+}
+
+.main-page a {
+  color: #121212;
+}
