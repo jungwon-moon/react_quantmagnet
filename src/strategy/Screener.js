@@ -56,7 +56,6 @@ function Screener() {
         <h1>종목 스크리너</h1>
         <Filters />
         <SortTable columns={columns} data={data} />
-        {console.log(data)}
       </div>
     </div>
   )

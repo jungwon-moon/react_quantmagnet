@@ -16,12 +16,12 @@ const AssetValue = () => {
 
   // // Values state
   const [values, setValues] = useState({
-    goal: '50000000', // 목표 저축액(goal)
-    current: '10000000', // 현재 저축액(current)
-    investment: '500000',  // 월 투자액(investment)
+    goal: '10000000', // 목표 저축액(goal)
+    current: '1000000', // 현재 저축액(current)
+    investment: '1000000',  // 월 투자액(investment)
     yieldRate: '12',  // 연 수익률(yieldRate)
-    compounding: '3', //복리 계산 단위(compounding)
-    numOfYear: '12' // 투자 기간(numOfYear)
+    compounding: '1', //복리 계산 단위(compounding)
+    numOfYear: '6' // 투자 기간(numOfYear)
   })
   const [outputValues, setOutputValues] = useState({
     main: '99999',
@@ -113,19 +113,19 @@ const AssetValue = () => {
         labels: labels,
         datasets: [
           {
-            type: 'bar',
+            // type: 'bar',
             label: '현재 저축액',
             data: chartCurrent,
             backgroundColor: 'rgb(255, 99, 132)',
           },
           {
-            type: 'bar',
+            // type: 'bar',
             label: '누적 투자액',
             data: chartSavings,
             backgroundColor: 'rgb(54, 162, 235)',
           },
           {
-            type: 'bar',
+            // type: 'bar',
             label: '누적 수익',
             data: chartYield,
             backgroundColor: 'rgb(255, 205, 86)',

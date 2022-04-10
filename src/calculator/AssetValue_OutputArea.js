@@ -1,19 +1,23 @@
 import React from "react"
 import SortTable from '../components/SortTable'
 import { comma } from '../utils/utils'
-import { Chart } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
+  registerables,
   CategoryScale,
-  BarElement,
   LinearScale,
+  BarElement,
+  Title,
   Legend,
-  Tooltip
+  Tooltip,
 } from 'chart.js'
 ChartJS.register(
+  ...registerables,
   CategoryScale,
-  BarElement,
   LinearScale,
+  BarElement,
+  Title,
   Legend,
   Tooltip
 )
@@ -112,7 +116,7 @@ const OutputArea = ({ mode, outputValues, outputChartData,
       </div>
       <div className="outputBody">
         {bodyToggle
-          ? <Chart options={options} data={outputChartData} />
+          ? <Bar options={options} data={outputChartData} />
           : <SortTable columns={columns} data={data} />}
         <Toggle conn="chart" name="차트"
           change={bodyToggleChange} Toggle={bodyToggle} />
