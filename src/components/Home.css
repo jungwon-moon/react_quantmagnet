@@ -1,3 +1,4 @@
+html {font-size: 10px;}
 :root {
   /* main */
   --main-color1: #102027;
@@ -8,19 +9,23 @@
   /* back, bar */
   /* --main-color4: #d6d6d9; */
   --main-color4: #ffffff;
-  --main-color5: #ced4da;
+  /* --main-color5: #ced4da; */
+  --main-color5: #dfdfdf;
   /* logo */
   --logo-color: var(--main-color4);
 }
 
 .App {
   text-align: center;
-  /* margin: 10px; */
 }
 
 .main-page {
   position: relative;
-  top: 65px;
+  top: 100px;
+  font-size: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .main-page a {

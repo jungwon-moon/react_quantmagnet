@@ -198,9 +198,9 @@ const AssetValue = () => {
       let totalInvestment = current + investment
       let totalSavings = current + investment
       let totalYield = 0
-      let currentYield = totalSavings* yieldRate
+      let currentYield = totalSavings * yieldRate
       while (true) {
-        if (month%compounding===0) {
+        if (month % compounding === 0) {
           totalYield += currentYield
           months.push(month)
           sumInvestment.push(totalInvestment)
@@ -231,7 +231,7 @@ const AssetValue = () => {
             sumSavings.push(totalSavings)
           }
           if (month % 12 !== 0) {
-            labels.push(`${parseInt(month/12)}년 ${month %12}개월`)
+            labels.push(`${parseInt(month / 12)}년 ${month % 12}개월`)
             chartCurrent.push(Math.round(current))
             chartYield.push(Math.round(totalYield))
             chartSavings.push(Math.round(totalSavings - currentYield - current))
@@ -283,23 +283,25 @@ const AssetValue = () => {
   return (
     <div>
       <div className="main-page">
+        <div>
         <h1>자산가치 계산기</h1>
-        <div className="container">
-          <div className="inputArea">
-            <InputHeader mode={mode}
-              toggleChange={handleHeaderToggleChange} />
-            <InputBody mode={mode} values={values}
-              InputValueChange={handleInputValueChange} />
-            <button onClick={handleCalculatorClick}>계산</button>
+          <div className="container">
+            <div className="inputArea">
+              <InputHeader mode={mode}
+                toggleChange={handleHeaderToggleChange} />
+              <InputBody mode={mode} values={values}
+                InputValueChange={handleInputValueChange} />
+              <button onClick={handleCalculatorClick}>계산</button>
+            </div>
+            {outputToggle &&
+              <OutputArea mode={mode} outputData={''}
+                headerToggle={outputHeaderToggle}
+                bodyToggle={outputBodyToggle}
+                outputValues={outputValues}
+                outputChartData={outputChartData}
+                headerToggleChange={handleOutputHeaderToggleChange}
+                bodyToggleChange={handleOutputbodyToggleChange} />}
           </div>
-          {outputToggle &&
-            <OutputArea mode={mode} outputData={''}
-              headerToggle={outputHeaderToggle}
-              bodyToggle={outputBodyToggle}
-              outputValues={outputValues}
-              outputChartData={outputChartData}
-              headerToggleChange={handleOutputHeaderToggleChange}
-              bodyToggleChange={handleOutputbodyToggleChange} />}
         </div>
       </div>
     </div>

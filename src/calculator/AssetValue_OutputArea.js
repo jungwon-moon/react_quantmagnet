@@ -74,13 +74,13 @@ const OutputArea = ({ mode, outputValues, outputChartData,
   }
   const data = []
   for (let idx = 1; idx < sumSavings.length; idx++) {
-    {
-      mode === 'achieveGoal'
-        ? data.push({
-          month: months[idx],
-          sumInvestment: comma(Math.round(Number(sumInvestment[idx]))),
-          sumYield: comma(Math.round(Number(sumYield[idx]))),
-          sumSavings: comma(Math.round(Number(sumSavings[idx])))
+
+    mode === 'achieveGoal'
+      ? data.push({
+        month: months[idx],
+        sumInvestment: comma(Math.round(Number(sumInvestment[idx]))),
+        sumYield: comma(Math.round(Number(sumYield[idx]))),
+        sumSavings: comma(Math.round(Number(sumSavings[idx])))
       })
       : data.push({
         month: idx * compounding,
@@ -88,7 +88,8 @@ const OutputArea = ({ mode, outputValues, outputChartData,
         sumYield: comma(Math.round(Number(sumYield[idx]))),
         sumSavings: comma(Math.round(Number(sumSavings[idx])))
       }
-    )}
+      )
+
   }
 
   return (
@@ -117,7 +118,7 @@ const OutputArea = ({ mode, outputValues, outputChartData,
       <div className="outputBody">
         {bodyToggle
           ? <Bar options={options} data={outputChartData} />
-          : <SortTable columns={columns} data={data} />}
+          : <SortTable columns={columns} data={data} className="assetValueTable"/>}
         <Toggle conn="chart" name="차트"
           change={bodyToggleChange} Toggle={bodyToggle} />
         <Toggle conn="table" name="테이블"

@@ -64,6 +64,7 @@
 }
 .outputArea{
   width: 50vw;
+  margin: 0 20px;
 }
 .outputHeader{
   padding: 16px;
@@ -83,7 +84,7 @@
 .valuesToggle > label{
   cursor: pointer;
 }
-table {
+.assetValueTable {
 width: 50vw;
 }
 

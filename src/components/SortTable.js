@@ -1,7 +1,7 @@
 import { React } from "react";
 import { useTable, useSortBy } from "react-table";
 
-function Table({ columns, data }) {
+function Table({ columns, data, className }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -10,7 +10,7 @@ function Table({ columns, data }) {
     prepareRow
   } = useTable({ columns, data }, useSortBy);
   return (
-    <table {...getTableProps()}>
+    <table className={ className } {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>

@@ -61,9 +61,11 @@ function Navbar() {
         <div className="navbar_toggle" onClick={onToggle}><FontAwesomeIcon icon={faBars} /></div>
       </nav >
       <Outlet />
+      {visible&&
+        <div className="navbar_back" onClick={onToggle}/>
+      }
     </>
   )
 }
-
 
 export default Navbar;
