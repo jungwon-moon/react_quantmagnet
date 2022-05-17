@@ -7,9 +7,7 @@ const Home = () => {
   return (
     <>
       <Outlet />
-      <div className="main-page">
-        <h1>홈</h1>
-      </div>
+      <h1>홈</h1>
     </>
   )
 }

@@ -282,26 +282,24 @@ const AssetValue = () => {
 
   return (
     <div>
-      <div className="main-page">
-        <div>
+      <div>
         <h1>자산가치 계산기</h1>
-          <div className="container">
-            <div className="inputArea">
-              <InputHeader mode={mode}
-                toggleChange={handleHeaderToggleChange} />
-              <InputBody mode={mode} values={values}
-                InputValueChange={handleInputValueChange} />
-              <button onClick={handleCalculatorClick}>계산</button>
-            </div>
-            {outputToggle &&
-              <OutputArea mode={mode} outputData={''}
-                headerToggle={outputHeaderToggle}
-                bodyToggle={outputBodyToggle}
-                outputValues={outputValues}
-                outputChartData={outputChartData}
-                headerToggleChange={handleOutputHeaderToggleChange}
-                bodyToggleChange={handleOutputbodyToggleChange} />}
+        <div className="container">
+          <div className="inputArea">
+            <InputHeader mode={mode}
+              toggleChange={handleHeaderToggleChange} />
+            <InputBody mode={mode} values={values}
+              InputValueChange={handleInputValueChange} />
+            <button onClick={handleCalculatorClick}>계산</button>
           </div>
+          {outputToggle &&
+            <OutputArea mode={mode} outputData={''}
+              headerToggle={outputHeaderToggle}
+              bodyToggle={outputBodyToggle}
+              outputValues={outputValues}
+              outputChartData={outputChartData}
+              headerToggleChange={handleOutputHeaderToggleChange}
+              bodyToggleChange={handleOutputbodyToggleChange} />}
         </div>
       </div>
     </div>

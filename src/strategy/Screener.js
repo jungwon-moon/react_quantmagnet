@@ -113,13 +113,11 @@ function Screener() {
 
   return (
     <div>
-      <div className="main-page">
-        <div>
-          <h1>종목 스크리너</h1>
-          <div className="container">
-            <Filters params={params} change={handleSliderChange} />
-            <SortTable className="screenerTable" columns={columns} data={data} />
-          </div>
+      <div>
+        <h1>종목 스크리너</h1>
+        <div className="container">
+          <Filters params={params} change={handleSliderChange} />
+          <SortTable className="screenerTable" columns={columns} data={data} />
         </div>
       </div>
     </div>
