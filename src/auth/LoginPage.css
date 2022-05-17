@@ -1,0 +1,12 @@
+.loginBox{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.loginBox button {
+  height: 34px;
+  margin-top: 8px;
+  font-size: 1.6rem;
+  color: var(--main-color5);
+  background-color: var(--main-color1);
+}
