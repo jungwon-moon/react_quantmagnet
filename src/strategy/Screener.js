@@ -95,7 +95,7 @@ function Screener() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/api/kr/fundamental',
+      url: '/api/kr/valuation',
       params: params
     }).then(
       res => setData([...res.data.results])
