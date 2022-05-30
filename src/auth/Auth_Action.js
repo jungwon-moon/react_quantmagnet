@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  LOGIN_USER, LOGOUT_USER, REGISTER_USER, AUTH_USER,
+  LOGIN_USER, LOGOUT_USER, REGISTER_USER,
   CHECK_USERNAME, CHECK_EMAIL,
 } from './types';
 
@@ -48,7 +48,7 @@ const registerUser = (submitData, navigate) => {
 }
 
 const auth=() => {
-  const request = axios.get('/auth/profile/')
+  axios.get('/auth/profile/')
     .then(res => console.log(res.data))
 }
 

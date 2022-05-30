@@ -25,6 +25,16 @@ html {font-size: 10px;}
   font-size: 1.6rem;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.main-page-vertical {
+  position: relative;
+  top: 100px;
+  font-size: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
 }
 

@@ -13,6 +13,8 @@ import Screener from './strategy/Screener'
 import Calculator from './calculator/Calculator'
 import AssetValue from './calculator/AssetValue'
 
+import StockDetails from './components/StockDetails'
+
 
 function AppRoutes() {
   const authenticated = useSelector(state => state.auth.authenticated)
@@ -31,7 +33,7 @@ function AppRoutes() {
           <Route path="register" element={<Navigate replace to="/" />} />
         </>
       }
-
+      <Route path="stockdetails/:stcd" element={<StockDetails />} />
       <Route path="strategy" element={<Strategy />} />
       <Route path="strategy/screener" element={<Screener />} />
       <Route path="calculator" element={<Calculator />} />

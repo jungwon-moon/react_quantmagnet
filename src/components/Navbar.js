@@ -20,7 +20,7 @@ function Menu(props) {
   )
 }
 
-function Navbar({ }) {
+function Navbar() {
   const [visible, setVisible] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 768 })
   

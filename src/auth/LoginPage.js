@@ -1,13 +1,16 @@
 import { React, useState } from "react";
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
+import {
+  // useSelector,
+  useDispatch
+} from "react-redux";
 import "./LoginPage.css";
-import { loginUser, authUser } from '../store/modules/auth';
+import { loginUser } from '../store/modules/auth';
 
 
 const LoginPage = () => {
   const dispatch = useDispatch()
-  const auth = useSelector(state => state.auth)
+  // const auth = useSelector(state => state.auth)
     
   // state
   const [username, setUsername] = useState('')

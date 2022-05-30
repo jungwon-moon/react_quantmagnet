@@ -1,0 +1,45 @@
+.stockDetailHeader {
+  font-weight: 600;
+}
+
+.stockDetailHeader .symbolArea {
+  display: flex;
+}
+
+.stockDetailHeader .symbolBox {
+  padding: 4px 8px 4px 8px;
+  margin: 0 8px 0 0;
+  font-size: 1.4rem;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 6px;
+}
+
+.stockDetailHeader .priceArea {
+  display: flex;
+  padding: 16px 0;
+}
+
+.stockDetailHeader .priceBox {
+  font-size: 3rem;
+  margin: 8px 8px 8px 0;
+}
+
+
+.stockDetailBody {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.stockDetailBody .contentTable {
+  width: 300px;
+}
+.stockDetailBody .contentTableRow{
+  display: flex;
+  justify-content: space-between;
+
+}
