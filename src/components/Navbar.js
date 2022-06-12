@@ -4,7 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartColumn, faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authUser, logoutUser } from '../store/modules/auth';
 
@@ -29,13 +29,13 @@ function Search({ refs, searchWord, onChange, onKeyPress, searchItems, searchIte
         onKeyUp={onKeyPress}
       />
       <FontAwesomeIcon className="search_btn" icon={faMagnifyingGlass} />
-        {searchWord !== ''
-        ? <SearchItems
+        {searchItems.length === 0
+        ? <></>
+        : <SearchItems
           refs={refs}
           searchItems={searchItems}
           searchItemsIndex={searchItemsIndex}
         />
-        : <></>
       }
     </div>
   )
@@ -45,17 +45,16 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
 
   return (
     <ul className="search_items" ref={elem => (refs.current[0] = elem)}>
-      {searchItems
-        ? searchItems.map((d, index) => (
+      {searchItems.length === 0
+        ? <></>
+        : searchItems.map((d, index) => (
           <Link to={`stockdetails/${d.stcd}`} key={index}>
-            {/* {console.log(index, searchItemsIndex)} */}
             {searchItemsIndex === index
               ? <li className="search_item_focus">{d.stcd} {d.stnm}</li>
               : <li className="search_item">{d.stcd} {d.stnm}</li>
             }
           </Link>
         ))
-        : <></>
       }
     </ul>
   )
@@ -64,16 +63,17 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
 // Main Components
 function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 768 })
-
+  
   const [visible, setVisible] = useState(false)
   const [searchWord, setSearchWord] = useState('')
-  const [searchItems, setSearchItems] = useState('')
+  const [searchItems, setSearchItems] = useState([])
   const [searchItemsIndex, setSearchItemsIndex] = useState(0)
   const [maxIndex, setMaxIndex] = useState(0)
-
+  
   const authenticated = useSelector(state => state.auth.authenticated)
   // const user = useSelector(state => state.auth.data.username)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const refs = useRef([])
 
 
@@ -84,7 +84,7 @@ function Navbar() {
 
   useEffect(() => {
     if (searchWord === '') {
-      setSearchItems('')
+      setSearchItems([])
     } else {
       const params = {
         'search': searchWord
@@ -123,7 +123,7 @@ function Navbar() {
   function onKeyPress(e) {
     switch (e.key) {
       case "Enter":
-        console.log(searchItems[searchItemsIndex].stnm)
+        navigate(`/stockdetails/${searchItems[searchItemsIndex].stcd}`)
         break;
       case "ArrowUp":
         if (searchItemsIndex <= 0) {
@@ -145,8 +145,6 @@ function Navbar() {
       // no default
     }
   }
-  console.log(searchItemsIndex)
-
 
   return (
     <>
