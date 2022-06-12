@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { comma } from '../utils/utils'
 import Chart from "react-apexcharts"
 import axios from "axios"
 import "./StockDetails.css"
@@ -15,12 +16,12 @@ const StockDetailHeader = ({ details, price }) => {
       </div>
 
       <div className="priceArea">
-        <div className="priceBox">{price.close}</div>
+        <div className="priceBox">{comma(price.close)}</div>
         <div className="prevdBox">
           <div style={{ fontWeight: "300" }}>기준일: {price.date}</div>
           {price.prevd > 0
-            ? <div style={{ color: "red" }}>+{price.prevd}(+{price.rate} %)</div>
-            : <div style={{ color: "blue" }}>{price.prevd}({price.rate} %)</div>
+            ? <div style={{ color: "red" }}>+{comma(price.prevd)}(+{price.rate} %)</div>
+            : <div style={{ color: "blue" }}>{comma(price.prevd)}({price.rate} %)</div>
           }
         </div>
       </div>
@@ -71,11 +72,11 @@ const StockDetailBody = ({ details, price, prices }) => {
       <div className="contentTable">
         <div className="contentTableRow">
           <div>전일 종가</div>
-          <div>{String(price.close - price.prevd)}</div>
+          <div>{String(comma(price.close - price.prevd))}</div>
         </div>
         <div className="contentTableRow">
           <div>시작가</div>
-          <div>{price.open}</div>
+          <div>{comma(price.open)}</div>
         </div>
         <div className="contentTableRow">
           <div>PBR</div>
@@ -86,15 +87,27 @@ const StockDetailBody = ({ details, price, prices }) => {
           <div>{details.per}</div>
         </div>
         <div className="contentTableRow">
-          <div>PER</div>
-          <div>{details.per}</div>
+          <div>BPS</div>
+          <div>{details.bps}</div>
+        </div>
+        <div className="contentTableRow">
+          <div>DPS</div>
+          <div>{details.dps}</div>
+        </div>
+        <div className="contentTableRow">
+          <div>ROE</div>
+          <div>{details.roe}</div>
+        </div>
+        <div className="contentTableRow">
+          <div>DVD_YLD</div>
+          <div>{details.dvd_yld}</div>
         </div>
       </div>
     </div>
   )
 }
 
-
+// Main Components
 const StockDetails = () => {
   const stcd = useParams().stcd
   const [price, setPrice] = useState([{  }])
@@ -102,28 +115,26 @@ const StockDetails = () => {
     date: '000000'
     }])
   const [details, setDetails] = useState([{}])
-  const params = {
-    stcd__contains: stcd,
-  }
+
 
   useEffect(() => {
     axios({
       method: 'get',
       url: '/api/kr/valuation/',
-      params: params
+      params: { stcd__contains: stcd }
     }).then(
       res => {
         const data = res.data.results
         setDetails(data[data.length - 1])
       }
     )
-  }, [])
+  }, [stcd])
 
   useEffect(() => {
     axios({
       method: 'get',
       url: '/api/kr/stockprice/',
-      params: params
+      params: { stcd__contains: stcd }
     }).then(
       res => {
         const data = res.data.results
@@ -131,7 +142,7 @@ const StockDetails = () => {
         setPrices(data.slice(-200))
       }
     )
-  }, [])
+  }, [stcd])
 
 
   return (
