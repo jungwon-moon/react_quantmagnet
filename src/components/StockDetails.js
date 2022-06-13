@@ -109,6 +109,7 @@ const StockDetailBody = ({ details, price, prices }) => {
 
 // Main Components
 const StockDetails = () => {
+// useState
   const stcd = useParams().stcd
   const [price, setPrice] = useState([{}])
   const [prices, setPrices] = useState([{
@@ -117,8 +118,9 @@ const StockDetails = () => {
   const [details, setDetails] = useState([{}])
 
 
-  useEffect(async () => {
-    await axios({
+// useEffect
+  useEffect(() => {
+    axios({
       method: 'get',
       url: '/api/kr/valuation/',
       params: { stcd__contains: stcd }
@@ -130,15 +132,14 @@ const StockDetails = () => {
       )
     }, [stcd])
     
-    useEffect(async () => {
-      await axios({
+    useEffect(() => {
+      axios({
         method: 'get',
         url: '/api/kr/stockprice/',
         params: { stcd__contains: stcd }
       }).then(
         res => {
           const data = res.data.results
-          {console.log(data)}
           setPrice(data[data.length - 1])
           setPrices(data.slice(-200))
       }

@@ -29,7 +29,7 @@ function Search({ refs, searchWord, onChange, onKeyPress, searchItems, searchIte
         onKeyUp={onKeyPress}
       />
       <FontAwesomeIcon className="search_btn" icon={faMagnifyingGlass} />
-        {searchItems.length === 0
+      {searchItems.length === 0
         ? <></>
         : <SearchItems
           refs={refs}
@@ -62,19 +62,33 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
 
 // Main Components
 function Navbar() {
+  // useState
   const isMobile = useMediaQuery({ maxWidth: 768 })
-  
+
   const [visible, setVisible] = useState(false)
   const [searchWord, setSearchWord] = useState('')
   const [searchItems, setSearchItems] = useState([])
   const [searchItemsIndex, setSearchItemsIndex] = useState(0)
   const [maxIndex, setMaxIndex] = useState(0)
-  
+
   const authenticated = useSelector(state => state.auth.authenticated)
   // const user = useSelector(state => state.auth.data.username)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const refs = useRef([])
+
+  // Function
+  async function searchAPI(params) {
+    await axios({
+      method: 'get',
+      url: '/api/kr/searchstock',
+      params: params
+    }).then(
+      res => {
+        const data = res.data.results
+        setSearchItems(data)
+      })
+  }
 
 
   // useEffect 
@@ -89,19 +103,14 @@ function Navbar() {
       const params = {
         'search': searchWord
       }
-      axios({
-        method: 'get',
-        url: '/api/kr/searchstock',
-        params: params
-      }).then(
-        res => setSearchItems([...res.data.results])
-      )
+      searchAPI(params)
     }
   }, [searchWord]);
 
   useEffect(() => {
     setMaxIndex(searchItems.length)
   }, [searchItems])
+
 
   // Events
   const onClickLogout = () => {
@@ -127,17 +136,17 @@ function Navbar() {
         break;
       case "ArrowUp":
         if (searchItemsIndex <= 0) {
-          setSearchItemsIndex(maxIndex-1)
+          setSearchItemsIndex(maxIndex - 1)
         } else {
           setSearchItemsIndex(searchItemsIndex - 1)
         }
         break;
-        case "ArrowDown":
-          if (searchItemsIndex >= 9) {
-            setSearchItemsIndex(0)
-          } else {
-            setSearchItemsIndex(searchItemsIndex + 1)
-          }
+      case "ArrowDown":
+        if (searchItemsIndex >= 9) {
+          setSearchItemsIndex(0)
+        } else {
+          setSearchItemsIndex(searchItemsIndex + 1)
+        }
         break;
       case "Escape":
         console.log(e.key)
