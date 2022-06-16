@@ -73,15 +73,17 @@ function Navbar() {
 
   const authenticated = useSelector(state => state.auth.authenticated)
   // const user = useSelector(state => state.auth.data.username)
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const refs = useRef([])
+
 
   // Function
   async function searchAPI(params) {
     await axios({
       method: 'get',
-      url: '/api/kr/searchstock',
+      url: '/api/searchstock',
       params: params
     }).then(
       res => {
