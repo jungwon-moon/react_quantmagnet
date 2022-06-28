@@ -36,3 +36,13 @@ html {font-size: 10px;}
 .main-page a {
   color: #121212;
 }
+
+.button {
+  margin: 0 12px;
+  padding: 8px 20px;
+  font-size: 1.6rem;
+  background-color: var(--main-color1);
+  color: white;
+  border-radius: 4px;
+  border: 0;
+}

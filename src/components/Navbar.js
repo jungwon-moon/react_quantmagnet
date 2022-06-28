@@ -63,6 +63,10 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
 // Main Components
 function Navbar() {
   // useState
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const refs = useRef([])
+
   const isMobile = useMediaQuery({ maxWidth: 768 })
 
   const [visible, setVisible] = useState(false)
@@ -74,11 +78,6 @@ function Navbar() {
   const authenticated = useSelector(state => state.auth.authenticated)
   // const user = useSelector(state => state.auth.data.username)
   
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const refs = useRef([])
-
-
   // Function
   async function searchAPI(params) {
     await axios({

@@ -1,22 +1,24 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import './Screener.css'
 import SortTable from '../components/SortTable'
 import MultilRangeSlider from "../components/MultiRangeSlider";
+import { getScreenerDate } from "../utils/utils";
+
 
 const filter = [
   {
     id: 1,
-    title: "주당순이익(EPS) ⓘ",
-    name: "eps",
+    title: "주가순자산비율(PBR)",
+    name: "pbr",
     min: "0",
-    max: "100",
+    max: "50",
     left: "0",
-    right: "100",
+    right: "50",
   },
   {
     id: 2,
-    title: "주가수익률(PER) ⓘ",
+    title: "주가수익률(PER)",
     name: "per",
     min: "0",
     max: "500",
@@ -25,7 +27,16 @@ const filter = [
   },
   {
     id: 3,
-    title: "주당순자산가치(BPS) ⓘ",
+    title: "주당순이익(EPS)",
+    name: "eps",
+    min: "0",
+    max: "100",
+    left: "0",
+    right: "100",
+  },
+  {
+    id: 4,
+    title: "주당순자산가치(BPS)",
     name: "bps",
     min: "500",
     max: "200000",
@@ -33,17 +44,8 @@ const filter = [
     right: "200000",
   },
   {
-    id: 4,
-    title: "주가순자산비율(PBR) ⓘ",
-    name: "pbr",
-    min: "0",
-    max: "50",
-    left: "0",
-    right: "50",
-  },
-  {
     id: 5,
-    title: "자기자본이익률(ROE) ⓘ",
+    title: "자기자본이익률(ROE)",
     name: "roe",
     min: "0",
     max: "300",
@@ -51,7 +53,7 @@ const filter = [
     right: "300",
   },
 ]
-const Filters = ({ change }) => {
+const Filters = ({ change, onClickLookup }) => {
   return (
     <div className="filter-box">
       {
@@ -64,21 +66,29 @@ const Filters = ({ change }) => {
               left={filter.left} right={filter.right} />
           </div>
         )}
-      <button>조회</button>
-
+      <button className="button"
+        onClick={onClickLookup}>조회</button>
     </div>
   )
 }
 
 // Screener Components
 function Screener() {
+  const date = getScreenerDate()
+  const [lookup, setLookup] = useState(true)
   const [data, setData] = useState([])
   const [params, setParams] = useState({
-    date__contains: '20220404',
+    date__contains: date,
+    pbr__gte: '0',
+    pbr__lte: '50',
     per__gte: '0',
-    per__lte: '100',
-    roe__gte: '30',
-    roe__lte: '100',
+    per__lte: '500',
+    eps__gte: '0',
+    eps__lte: '100',
+    bps__gte: '500',
+    bps__lte: '20000',
+    roe__gte: '0',
+    roe__lte: '300',
   })
   const columns = [
     { accessor: "stnm", Header: "종목명" },
@@ -91,7 +101,7 @@ function Screener() {
     { accessor: "dvd_yld", Header: "DVD_YLD" },
   ]
 
-
+  // useEffect
   useEffect(() => {
     axios({
       method: 'get',
@@ -100,7 +110,7 @@ function Screener() {
     }).then(
       res => setData([...res.data.results])
     )
-  }, []);
+  }, [lookup])   // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const handleSliderChange = (e) => {
@@ -111,12 +121,16 @@ function Screener() {
     })
   }
 
+  const onClickLookup = () => {
+    setLookup(!lookup)
+  }
+
   return (
     <div>
       <div>
         <h1>종목 스크리너</h1>
         <div className="container">
-          <Filters params={params} change={handleSliderChange} />
+          <Filters params={params} change={handleSliderChange} onClickLookup={onClickLookup} />
           <SortTable className="screenerTable" columns={columns} data={data} />
         </div>
       </div>
