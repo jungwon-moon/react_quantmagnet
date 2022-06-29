@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Navbar.css"
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,6 +29,7 @@ function Search({ refs, searchWord, onChange, onKeyPress, searchItems, searchIte
         onKeyUp={onKeyPress}
       />
       <FontAwesomeIcon className="search_btn" icon={faMagnifyingGlass} />
+
       {searchItems.length === 0
         ? <></>
         : <SearchItems
@@ -42,7 +43,6 @@ function Search({ refs, searchWord, onChange, onKeyPress, searchItems, searchIte
 }
 
 function SearchItems({ refs, searchItems, searchItemsIndex }) {
-
   return (
     <ul className="search_items" ref={elem => (refs.current[0] = elem)}>
       {searchItems.length === 0
@@ -54,11 +54,11 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
               : <li className="search_item">{d.stcd} {d.stnm}</li>
             }
           </Link>
-        ))
-      }
+        ))}
     </ul>
   )
 }
+
 
 // Main Components
 function Navbar() {
@@ -67,7 +67,7 @@ function Navbar() {
   const navigate = useNavigate()
   const refs = useRef([])
 
-  const isMobile = useMediaQuery({ maxWidth: 768 })
+  const isMobile = useMediaQuery({ maxWidth: 800 })
 
   const [visible, setVisible] = useState(false)
   const [searchWord, setSearchWord] = useState('')
@@ -77,7 +77,8 @@ function Navbar() {
 
   const authenticated = useSelector(state => state.auth.authenticated)
   // const user = useSelector(state => state.auth.data.username)
-  
+
+
   // Function
   async function searchAPI(params) {
     await axios({
@@ -181,31 +182,27 @@ function Navbar() {
                 </Link>
               </ul>
 
-              <Search
-                refs={refs}
-                searchWord={searchWord}
-                onChange={onChangeSearchWord}
-                onKeyPress={onKeyPress}
-                searchItems={searchItems}
-                searchItemsIndex={searchItemsIndex}
-              />
+              <div className="navbar_end">
+                <Search
+                  refs={refs}
+                  searchWord={searchWord}
+                  onChange={onChangeSearchWord}
+                  onKeyPress={onKeyPress}
+                  searchItems={searchItems}
+                  searchItemsIndex={searchItemsIndex}
+                />
 
-
-              <ul className="navbar_user">
-                {authenticated === false ?
-                  <>
+                <ul className="navbar_user">
+                  {authenticated === false ?
                     <Link to="/login">
                       <li>로그인</li>
                     </Link>
-                  </>
-                  : <>
+                    :
                     <li onClick={onClickLogout}>로그아웃</li>
-                  </>
-                }
-              </ul>
-            </>
-          )
-        }
+                  }
+                </ul>
+              </div>
+            </>)}
         <div className="navbar_toggle" onClick={onToggle}><FontAwesomeIcon icon={faBars} /></div>
       </nav >
       <Outlet />
