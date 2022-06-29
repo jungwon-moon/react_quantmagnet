@@ -4,16 +4,16 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartColumn, faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authUser, logoutUser } from '../store/modules/auth';
 
 
 // Componenets
-function Menu({ title, isMobile }) {
+function Menu({ title, isMobile, link }) {
   return (
     <>
-      <li>{title}</li>
+      <a href={link}>{title}</a>
       {isMobile && <hr></hr>}
     </>
   )
@@ -27,8 +27,7 @@ function Search({ refs, searchWord, onChange, onKeyPress, searchItems, searchIte
         value={searchWord}
         onChange={onChange}
         onKeyUp={onKeyPress}
-      />
-      <FontAwesomeIcon className="search_btn" icon={faMagnifyingGlass} />
+        placeholder={'검색'} />
 
       {searchItems.length === 0
         ? <></>
@@ -47,13 +46,12 @@ function SearchItems({ refs, searchItems, searchItemsIndex }) {
     <ul className="search_items" ref={elem => (refs.current[0] = elem)}>
       {searchItems.length === 0
         ? <></>
-        : searchItems.map((d, index) => (
-          <Link to={`stockdetails/${d.stcd}`} key={index}>
-            {searchItemsIndex === index
-              ? <li className="search_item_focus">{d.stcd} {d.stnm}</li>
-              : <li className="search_item">{d.stcd} {d.stnm}</li>
-            }
-          </Link>
+        : searchItems.map((d, index) => (<>
+          {searchItemsIndex === index
+            ? <a href={`/stockdetails/${d.stcd}`} className="search_item_focus">{d.stcd}   {d.stnm}</a>
+            : <a href={`/stockdetails/${d.stcd}`} className="search_item">{d.stcd}   {d.stnm}</a>
+          }
+        </>
         ))}
     </ul>
   )
@@ -69,7 +67,8 @@ function Navbar() {
 
   const isMobile = useMediaQuery({ maxWidth: 800 })
 
-  const [visible, setVisible] = useState(false)
+  const [isMenu, setIsMenu] = useState(false)
+  const [isSearch, setIsSearch] = useState(false)
   const [searchWord, setSearchWord] = useState('')
   const [searchItems, setSearchItems] = useState([])
   const [searchItemsIndex, setSearchItemsIndex] = useState(0)
@@ -119,8 +118,11 @@ function Navbar() {
     dispatch(logoutUser())
   }
 
-  function onToggle() {
-    setVisible(!visible)
+  function onToggleMenu() {
+    setIsMenu(!isMenu)
+  }
+  function onToggleSearch() {
+    setIsSearch(!isSearch)
   }
 
   function onChangeSearchWord(e) {
@@ -161,53 +163,60 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar_logo">
-          {<Link to="/">
-            <i><FontAwesomeIcon icon={faChartColumn} /></i>
-          </Link>}
+          {!isMobile && (
+            <a href="/"><FontAwesomeIcon icon={faChartColumn} /></a>
+          )}
           <a href="/">QuantMagnet</a>
         </div>
         {
-          (visible || !isMobile) && (
+          (isMenu || !isMobile) && (
             <>
-              <ul className="navbar_menu">
-                <Link to="/strategy">
-                  <Menu
-                    isMobile={isMobile}
-                    title="투자전략" />
-                </Link>
-                <Link to="/calculator">
-                  <Menu
-                    isMobile={isMobile}
-                    title="계산기" />
-                </Link>
-              </ul>
-
+              <div className="navbar_menu">
+                <Menu
+                  isMobile={isMobile}
+                  title="투자전략"
+                  link="/strategy" />
+                <Menu
+                  isMobile={isMobile}
+                  title="계산기"
+                  link="/calculator" />
+              </div>
               <div className="navbar_end">
-                <Search
-                  refs={refs}
-                  searchWord={searchWord}
-                  onChange={onChangeSearchWord}
-                  onKeyPress={onKeyPress}
-                  searchItems={searchItems}
-                  searchItemsIndex={searchItemsIndex}
-                />
+                {!isMobile && (
+                  <Search
+                    refs={refs}
+                    searchWord={searchWord}
+                    onChange={onChangeSearchWord}
+                    onKeyPress={onKeyPress}
+                    searchItems={searchItems}
+                    searchItemsIndex={searchItemsIndex} />
+                )}
 
-                <ul className="navbar_user">
+                <div className="navbar_user">
                   {authenticated === false ?
-                    <Link to="/login">
-                      <li>로그인</li>
-                    </Link>
+                    <a href="/login">로그인</a>
                     :
-                    <li onClick={onClickLogout}>로그아웃</li>
+                    <a href={() => false} onClick={onClickLogout}>로그아웃</a>
                   }
-                </ul>
+                </div>
               </div>
             </>)}
-        <div className="navbar_toggle" onClick={onToggle}><FontAwesomeIcon icon={faBars} /></div>
+
+        <FontAwesomeIcon className="navbar_toggle" onClick={onToggleMenu} icon={faBars} />
+        <FontAwesomeIcon className="search_toggle" onClick={onToggleSearch} icon={faMagnifyingGlass} />
+        {(isMobile && isSearch) && (
+          <Search
+            refs={refs}
+            searchWord={searchWord}
+            onChange={onChangeSearchWord}
+            onKeyPress={onKeyPress}
+            searchItems={searchItems}
+            searchItemsIndex={searchItemsIndex} />
+        )}
       </nav >
       <Outlet />
-      {visible &&
-        <div className="navbar_back" onClick={onToggle} />
+      {(isMenu) &&
+        <div className="navbar_back" onClick={onToggleMenu} />
       }
     </>
   )

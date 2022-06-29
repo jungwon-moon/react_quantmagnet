@@ -12,25 +12,22 @@
   width: calc(100% - 24px);
   height: 56px;
 }
+
 .navbar body {
   background-color: var(--main-color4);
 }
+
 .navbar a {
   text-decoration: none;
   color: var(--main-color4);
+  padding: 8px 12px;
 }
+
 .navbar_logo {
   font-size: 30px;
   font-weight: 500;
 }
-.navbar_logo i {
-  font-size: 28px;
-  color: var(--logo-color);
-  padding: 8px;
-}
-.navbar_logo a {
-  margin-left: 8px;
-}
+
 
 /* 메뉴 */
 .navbar_menu {
@@ -39,38 +36,17 @@
   padding-left: 0;
 }
 
-.navbar_menu li {
-  padding: 8px 12px;
-}
-
-.navbar_menu li:hover {
-  color: var(--main-color2);
-  border-radius: 4px;
-}
 
 .navbar_end {
   display: flex;
   align-self: flex-start;
-  margin-top: 6px;
 }
-.navbar_end li {
-  text-decoration: none;
-  color: var(--main-color4);
-}
+
 .navbar_user {
   list-style: none;
   padding: 8px 12px;
   display: flex;
   margin: 0;
-}
-
-.navbar_toggle {
-  display: none;
-  position: absolute;
-  padding: 12px;
-  right: 8px;
-  font-size: 30px;
-  color: var(--logo-color)
 }
 
 .navbar_back {
@@ -82,6 +58,7 @@
   background-color: white;
   opacity: 0.7;
 }
+
 /* 검색어 입력 + 검색 버튼 */
 .navbar .search_box {
   width: 250px;
@@ -91,25 +68,23 @@
   align-items: center;
   background-color: white;
   border: 1px solid var(--main-color3)
-  /* background-color: red; */
 }
+
 /* 검색어 입력 INPUT */
 .navbar .search_input {
   width: calc(100% - 60px);
   border: none;
   outline: none;
 }
+
 /* 검색 버튼 */
-.search_box .search_btn{
-  margin: 5px;
-  font-size: 25px;
-}
-.search_box .search_btn:hover{
+.search_box .search_btn:hover {
   cursor: pointer;
 }
+
 /* 연관 검색어 */
 .navbar .search_items {
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   margin: 0;
   /* display: flex; */
@@ -118,37 +93,44 @@
   border-radius: 40px;
   background-color: var(--main-color4);
 }
+
 .search_items .search_item_focus {
   display: flex;
   font-size: 15px;
   color: white;
   background-color: black;
 }
+
 .search_items .search_item {
   display: flex;
   font-size: 15px;
   color: black;
 }
+
 /* Active SearchBar */
-.search_input:focus ~ .search_items {
+.search_input:focus~.search_items {
   display: flex;
 }
+
 .search_items:hover {
   display: flex;
 }
 
+.navbar_toggle, .search_toggle {
+  display: none;
+}
+
 
 /* 반응형 웹 */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 800px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     height: auto;
   }
 
   .navbar_logo {
-    align-items: center;
-    padding: 12px 0px;
+    padding: 8px;
   }
 
   .navbar_menu {
@@ -165,5 +147,25 @@
 
   .navbar_toggle {
     display: block;
+    position: absolute;
+    padding: 13px;
+    left: 8px;
+    font-size: 30px;
+    color: var(--logo-color)
+  }
+  .search_toggle {
+    display: block;
+    position: absolute;
+    padding: 13px;
+    right: 8px;
+    font-size: 30px;
+    color: var(--logo-color)
+  }
+
+  .navbar .search_box {
+    position: absolute;
+    top: 0;
+    margin: 13px;
+    width: calc(100vw - 64px - 64px);
   }
 }
