@@ -25,6 +25,7 @@ html {
 .main-page {
   position: relative;
   top: 100px;
+  height: calc(100vh - 100px);
   font-size: 1.6rem;
   display: flex;
   flex-wrap: wrap;
@@ -49,4 +50,38 @@ html {
   color: white;
   border-radius: 4px;
   border: 0;
+}
+
+/* Card Components */
+.card {
+  display: block;
+  border: solid var(--main-color5);
+  border-width: 1px 1px 0px 1px;
+  margin: 20px;
+}
+
+.card-header {
+  border: solid var(--main-color5);
+  border-width: 0 0 1px;
+  padding: 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.card-body {
+  border: 1px solid var(--main-color5);
+  /* background-color: var(--main-color5); */
+}
+
+.list-group {
+  padding: 0;
+  margin: 0;
+  /* border: 1px solid var(--main-color5);  */
+}
+
+.list-group-item {
+  border: solid var(--main-color5);
+  border-width: 0 0 1px;
+  list-style: none;
+  padding: 6px;
 }

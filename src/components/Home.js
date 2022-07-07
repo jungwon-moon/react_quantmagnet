@@ -1,5 +1,4 @@
 import './Home.css'
-import './Card.css'
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Highcharts from 'highcharts'
@@ -12,12 +11,13 @@ wordCloud(Highcharts)
 // Main Components
 const Home = () => {
   // useState
+  const width = window.innerWidth
+
   const [data, setData] = useState('')
   const options = {
     chart: {
       type: "wordcloud",
-      width: 1000,
-      height: 600
+      width: width / 2
     },
     series: [{
       data: data,
@@ -25,19 +25,6 @@ const Home = () => {
     }],
     title: {
       text: '<b>경제 뉴스 키워드</b>'
-    },
-    responsive: {
-      rules: [{
-        condition: { maxWidth: 576 },
-        chartOptions: {
-          chart: {
-            width: 300,
-            height: 300
-          },
-          // subtitle: { text: null },
-          // navigator: { enabled: false }
-        }
-      }]
     },
     accessibility: {
       enabled: false
@@ -48,8 +35,22 @@ const Home = () => {
     },
     // 하단 캡션
     caption: {
-      // text: ''
+      text: null
     },
+    // 반응형 차트 설정
+    responsive: {
+      rules: [{
+        condition: { maxWidth: 800 },
+        chartOptions: {
+          chart: {
+            width: width
+          },
+          caption: {
+            text: getKeywordsTime()
+          }
+        }
+      }]
+    }
   }
 
 
