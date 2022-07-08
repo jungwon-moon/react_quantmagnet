@@ -95,9 +95,9 @@ width: 50vw;
     align-content: center;
   }
   .inputArea{
-    width: 90vw;
+    width: calc(100% - 66px);
   }
   .outputArea, table{
-    width: 95vw;
+    width: calc(100% - 40px);
   }
 }

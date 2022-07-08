@@ -40,7 +40,7 @@ const Home = () => {
     // 반응형 차트 설정
     responsive: {
       rules: [{
-        condition: { maxWidth: 800 },
+        condition: { maxWidth: 768 },
         chartOptions: {
           chart: {
             width: width

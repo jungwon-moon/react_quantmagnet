@@ -24,7 +24,7 @@ html {
 
 .main-page {
   position: relative;
-  top: 100px;
+  top: 78px;
   height: calc(100vh - 100px);
   font-size: 1.6rem;
   display: flex;
