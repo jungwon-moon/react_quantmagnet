@@ -16,12 +16,12 @@ const AssetValue = () => {
 
   // // Values state
   const [values, setValues] = useState({
-    goal: '10000000', // 목표 저축액(goal)
-    current: '1000000', // 현재 저축액(current)
-    investment: '1000000',  // 월 투자액(investment)
-    yieldRate: '12',  // 연 수익률(yieldRate)
+    goal: '100000000', // 목표 저축액(goal)
+    current: '0', // 현재 저축액(current)
+    investment: '600000',  // 월 투자액(investment)
+    yieldRate: '6',  // 연 수익률(yieldRate)
     compounding: '1', //복리 계산 단위(compounding)
-    numOfYear: '6' // 투자 기간(numOfYear)
+    numOfYear: '10' // 투자 기간(numOfYear)
   })
   const [outputValues, setOutputValues] = useState({
     main: '99999',
@@ -174,8 +174,7 @@ const AssetValue = () => {
             label: '현재 저축액',
             data: chartCurrent,
             backgroundColor: 'rgb(255, 99, 132)',
-          },
-          {
+          }, {
             type: 'bar',
             label: '누적 투자액',
             data: chartSavings,
@@ -199,6 +198,7 @@ const AssetValue = () => {
       let totalSavings = current + investment
       let totalYield = 0
       let currentYield = totalSavings * yieldRate
+
       while (true) {
         if (month % compounding === 0) {
           totalYield += currentYield

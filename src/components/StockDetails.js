@@ -6,13 +6,21 @@ import axios from "axios"
 import "./StockDetails.css"
 
 
+function resultValue(value) {
+  if (value === null) {
+    return '-'
+  } else {
+    return value
+  }
+}
+
 const StockDetailHeader = ({ details, price }) => {
   return (
     <div className="stockDetailHeader">
       <div className="symbolArea">
         <div className="symbolBox">{price.market}</div>
         <div className="symbolBox">{details.stcd}</div>
-        <div style={{ fontSize: "2rem" }}>{details.stnm}</div>
+        <div style={{ fontSize: "2rem", paddingTop: "4px" }}>{details.stnm}</div>
       </div>
 
       <div className="priceArea">
@@ -20,8 +28,8 @@ const StockDetailHeader = ({ details, price }) => {
         <div className="prevdBox">
           <div style={{ fontWeight: "300" }}>기준일: {price.date}</div>
           {price.prevd > 0
-            ? <div style={{ color: "red" }}>+{comma(price.prevd)}(+{price.rate} %)</div>
-            : <div style={{ color: "blue" }}>{comma(price.prevd)}({price.rate} %)</div>
+            ? <div style={{ color: "red", fontSize: "20px" }}>+{comma(price.prevd)}(+{price.rate} %)</div>
+            : <div style={{ color: "blue", fontSize: "20px" }}>{comma(price.prevd)}({price.rate} %)</div>
           }
         </div>
       </div>
@@ -31,6 +39,8 @@ const StockDetailHeader = ({ details, price }) => {
 
 
 const StockDetailBody = ({ details, price, prices }) => {
+  const width = window.innerWidth - 20
+  
   const data = prices.map((d) => [{
     x: d.date.slice(0, 4) + '-' + d.date.slice(4, 6) + '-' + d.date.slice(6, 8),
     y: [d.open, d.high, d.low, d.close]
@@ -49,25 +59,33 @@ const StockDetailBody = ({ details, price, prices }) => {
         tooltip: {
           enabled: true
         }
-      }
+      },
+      responsive: [{
+        breakpoint: 867,
+        options: {
+          chart: {
+            width: width
+          }
+        }
+      }]
+
     },
     series: [{
       data: data
     }]
   }
-
+  
   return (
     <div className="stockDetailBody">
       <div className="contentChart">
         <Chart
           type="candlestick"
-          height={250}
-          width={300}
+          height={350}
+          width={width / 3}
           options={priceChart.options}
           series={priceChart.series}
         />
       </div>
-
 
       <div className="contentTable">
         <div className="contentTableRow">
@@ -80,27 +98,27 @@ const StockDetailBody = ({ details, price, prices }) => {
         </div>
         <div className="contentTableRow">
           <div>PBR</div>
-          <div>{details.pbr}</div>
+          <div>{resultValue(details.pbr)}</div>
         </div>
         <div className="contentTableRow">
           <div>PER</div>
-          <div>{details.per}</div>
+          <div>{resultValue(details.per)}</div>
         </div>
         <div className="contentTableRow">
           <div>BPS</div>
-          <div>{details.bps}</div>
+          <div>{resultValue(details.bps)}</div>
         </div>
         <div className="contentTableRow">
           <div>DPS</div>
-          <div>{details.dps}</div>
+          <div>{resultValue(details.dps)}</div>
         </div>
         <div className="contentTableRow">
           <div>ROE</div>
-          <div>{details.roe}</div>
+          <div>{resultValue(details.roe)}</div>
         </div>
         <div className="contentTableRow">
           <div>DVD_YLD</div>
-          <div>{details.dvd_yld}</div>
+          <div>{resultValue(details.dvd_yld)}</div>
         </div>
       </div>
     </div>

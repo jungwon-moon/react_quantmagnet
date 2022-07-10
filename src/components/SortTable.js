@@ -1,5 +1,6 @@
 import { React } from "react";
 import { useTable, useSortBy } from "react-table";
+import './SortTable.css'
 
 function Table({ columns, data, className }) {
   const {
@@ -9,8 +10,9 @@ function Table({ columns, data, className }) {
     rows,
     prepareRow
   } = useTable({ columns, data }, useSortBy);
+  
   return (
-    <table className={ className } {...getTableProps()}>
+    <table className={'sortTable ' + className} {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -19,7 +21,7 @@ function Table({ columns, data, className }) {
                 {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render("Header")}
                 <span>
-                  {column.isSorted ? (column.isSortedDesc ? "▼": "▲"): ""}
+                  {column.isSorted ? (column.isSortedDesc ? "▼" : "▲") : ""}
                 </span>
               </th>
             ))}
@@ -32,7 +34,7 @@ function Table({ columns, data, className }) {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
-                <td className={ cell.column.Header === '종목명' ? "fixedRows" : ""}
+                <td className={cell.column.Header === '종목명' ? "fixedRows" : ""}
                   {...cell.getCellProps()}>
                   {cell.render("Cell")}
                 </td>

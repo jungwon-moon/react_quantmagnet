@@ -1,9 +1,3 @@
-.container {
-  display: flex;
-  border: 1px solid var(--main-color1);
-  justify-content: space-around;
-}
-
 .inputArea {
   flex-direction: column;
   border-radius: 4px;
@@ -102,7 +96,7 @@ input {
 }
 
 .assetValueTable {
-  width: 50vw;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {

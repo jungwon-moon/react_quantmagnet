@@ -1,0 +1,7 @@
+.sortTable{
+  border-collapse: collapse;
+}
+
+.sortTable>tr,th,td{
+  border: 1px solid var(--main-color5);
+}
