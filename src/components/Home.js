@@ -46,7 +46,7 @@ const Home = () => {
             width: width
           },
           caption: {
-            text: getKeywordsTime()
+            text: parseInt(getKeywordsTime())+5
           }
         }
       }]

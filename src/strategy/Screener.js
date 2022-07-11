@@ -4,7 +4,14 @@ import './Screener.css'
 import SortTable from '../components/SortTable'
 import MultilRangeSlider from "../components/MultiRangeSlider";
 import { getScreenerDate } from "../utils/utils";
+import { RingLoader } from "react-spinners";
+  
 
+const override = {
+  display: "block",
+  margin: "auto",
+  borderColor: "black"
+}
 
 const filter = [
   {
@@ -75,6 +82,8 @@ const Filters = ({ change, onClickLookup }) => {
 // Screener Components
 function Screener() {
   const date = getScreenerDate()
+
+  const [loading, setLoading] = useState(true)
   const [lookup, setLookup] = useState(true)
   const [data, setData] = useState([])
   const [params, setParams] = useState({
@@ -103,12 +112,16 @@ function Screener() {
 
   // useEffect
   useEffect(() => {
+    setLoading(true)
     axios({
       method: 'get',
       url: '/api/kr/valuation',
       params: params
     }).then(
-      res => setData([...res.data.results])
+      res => {
+        setData([...res.data.results])
+        setLoading(false)
+      }
     )
   }, [lookup])   // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -130,7 +143,10 @@ function Screener() {
       <h1>종목 스크리너</h1>
       <div className="container">
         <Filters params={params} change={handleSliderChange} onClickLookup={onClickLookup} />
-        <SortTable className="screenerTable" columns={columns} data={data} />
+        {
+          loading ? <RingLoader cssOverride={override} size={150} />
+          :<SortTable className="screenerTable" columns={columns} data={data} />
+        }
       </div>
     </div>
   )
