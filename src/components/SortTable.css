@@ -1,7 +1,21 @@
-.sortTable{
+.sortTable {
   border-collapse: collapse;
 }
 
-.sortTable>tr,th,td{
+.sortTable>tr,
+th,
+td {
   border: 1px solid var(--main-color5);
+}
+
+.sortTable th{
+  background-color: var(--main-color1);
+  color: var(--main-color5)
+}
+.sortTable>tbody tr:nth-child(2n) {
+  background-color: var(--main-color4);
+}
+
+.sortTable>tbody tr:nth-child(2n+1) {
+  background-color: var(--main-color5);
 }
