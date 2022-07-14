@@ -78,10 +78,10 @@ const Filters = ({ change, onClickLookup }) => {
     </div>
   )
 }
-
 // Screener Components
 function Screener() {
   const date = getScreenerDate()
+  console.log(date)
 
   const [loading, setLoading] = useState(true)
   const [lookup, setLookup] = useState(true)

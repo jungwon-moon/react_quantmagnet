@@ -56,6 +56,7 @@ const Home = () => {
 
   // useEffect
   useEffect(() => {
+    console.log(getKeywordsTime())
     axios({
       method: 'get',
       url: '/api/categorykeywords/',
