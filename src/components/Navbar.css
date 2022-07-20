@@ -21,6 +21,7 @@
   text-decoration: none;
   color: var(--main-color4);
   padding: 8px 12px;
+  cursor: pointer;
 }
 
 .navbar_logo {
