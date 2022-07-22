@@ -19,12 +19,12 @@ function getKeywordsTime() {
 }
 
 function checkWeekend(date) {
-  if (date.getDay() === (0 || 6)) {
+  if (date.getDay() === 0) {
+    date.setDate(date.getDate() - 2)
+  } else if(date.getDay() === 6) {
     date.setDate(date.getDate() - 1)
-    return checkWeekend(date)
-  } else {
-    return date
   }
+  return date
 }
 
 function getScreenerDate() {
