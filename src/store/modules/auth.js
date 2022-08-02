@@ -52,7 +52,7 @@ export const loginUser = (body) => async dispatch => {
 
 export const logoutUser = () => async dispatch => {
   try {
-    await axios.post('/auth/logout/')
+    await axios.get('/auth/logout/')
     dispatch({ type: LOGOUT_USER_SUCCESS })
     dispatch(authUser())
   } catch (error) {
