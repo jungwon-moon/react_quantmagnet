@@ -1,8 +1,10 @@
 import Navbar from "./components/Navbar";
 import AppRoutes from "./AppRoutes";
-
+import RouteChangeTracker from "./RouteChangeTracker";
 
 function App() {
+  RouteChangeTracker()
+
   return (
     <>
       <Navbar />
