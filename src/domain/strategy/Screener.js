@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import './Screener.css'
-import SortTable from '../components/SortTable'
-import MultilRangeSlider from "../components/MultiRangeSlider";
-import { getScreenerDate } from "../utils/utils";
+import SortTable from '../../components/SortTable'
+import MultilRangeSlider from "../../components/MultiRangeSlider";
+import { getScreenerDate } from "../../utils/utils";
 import { RingLoader } from "react-spinners";
   
 

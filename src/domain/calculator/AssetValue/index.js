@@ -2,7 +2,7 @@ import { React, useState, memo } from "react";
 import InputBody from "./AssetValue_InputBody";
 import InputHeader from "./AssetValue_InputHeader";
 import OutputArea from "./AssetValue_OutputArea";
-import { comma } from '../utils/utils'
+import { comma } from '../../../utils/utils'
 import './AssetValue.css';
 
 

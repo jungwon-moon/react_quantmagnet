@@ -1,5 +1,5 @@
 import App from './App'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import './index.css'
 import './components/Common.css'
 

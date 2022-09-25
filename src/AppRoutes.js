@@ -7,11 +7,11 @@ import NotFound from './components/NotFound'
 import LoginPage from './auth/LoginPage'
 import RegisterPage from './auth/RegisterPage'
 
-import Strategy from './strategy/Strategy'
-import Screener from './strategy/Screener'
+import Strategy from './domain/strategy/index'
+import Screener from './domain/strategy/Screener'
 
-import Calculator from './calculator/Calculator'
-import AssetValue from './calculator/AssetValue'
+import Calculator from './domain/calculator/index'
+import AssetValue from './domain/calculator/AssetValue/index'
 
 import StockDetails from './components/StockDetails'
 
