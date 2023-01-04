@@ -1,0 +1,33 @@
+.content {
+  display: flex;
+  padding: 2rem;
+  width: calc(100vw - 40px);
+  background: aqua;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  padding: 2rem;
+  height: 4rem;
+  font-size: 3rem;
+  font-weight: 700;
+  background-color: white;
+  color: var(--main-color1);
+}
+
+.card {
+  padding: 2rem;
+  background-color: aquamarine;
+}
+.cardHeader {
+  background-color: blue;
+}
+.cardBody {
+  display:flex;
+  justify-content:space-between;
+  background-color: bisque;
+}
+.bodyItem {
+  background-color: red;
+}

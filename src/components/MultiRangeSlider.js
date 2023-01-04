@@ -67,13 +67,13 @@ function MultilRangeSlider({ name, min, max, left, right, change }) {
         <div className="slider__track" />
         <div className="slider__range" ref={range} />
         <div className="slider-box">
-          <input className="slider__left-value" value={leftVal}
+          <input className="slider__left-value" value={leftVal} name={name + '__gte'}
             type="text" onChange={(e) => {
               const value = e.target.value // 필터링 필요
               setLeftVal(value)
               change(e)
             }} />
-          <input className="slider__right-value" value={rightVal}
+          <input className="slider__right-value" value={rightVal} name={name + '__gte'}
             type="text" onChange={(e) => {
               const value = e.target.value // 필터링 필요
               setRightVal(value)

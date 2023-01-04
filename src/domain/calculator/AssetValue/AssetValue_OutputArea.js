@@ -1,26 +1,8 @@
 import React from "react"
 import SortTable from '../../../components/SortTable'
-import { comma } from '../../../utils/utils'
+import { comma } from '../../../common/utils/utils'
 import { Bar } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  registerables,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Legend,
-  Tooltip,
-} from 'chart.js'
-ChartJS.register(
-  ...registerables,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Legend,
-  Tooltip
-)
+import 'chart.js/auto'
 
 const Toggle = ({ conn, Toggle, change, name }) => {
   return (
@@ -118,7 +100,7 @@ const OutputArea = ({ mode, outputValues, outputChartData,
       <div className="outputBody">
         {bodyToggle
           ? <Bar options={options} data={outputChartData} />
-          : <SortTable columns={columns} data={data} className="assetValueTable"/>}
+          : <SortTable columns={columns} data={data} className="assetValueTable" />}
         <Toggle conn="chart" name="차트"
           change={bodyToggleChange} Toggle={bodyToggle} />
         <Toggle conn="table" name="테이블"

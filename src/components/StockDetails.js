@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { comma } from '../utils/utils'
+import { comma } from '../common/utils/utils'
 import Chart from "react-apexcharts"
 import axios from "axios"
 import "./StockDetails.css"
@@ -40,7 +40,7 @@ const StockDetailHeader = ({ details, price }) => {
 
 const StockDetailBody = ({ details, price, prices }) => {
   const width = window.innerWidth - 20
-  
+
   const data = prices.map((d) => [{
     x: d.date.slice(0, 4) + '-' + d.date.slice(4, 6) + '-' + d.date.slice(6, 8),
     y: [d.open, d.high, d.low, d.close]
@@ -74,7 +74,7 @@ const StockDetailBody = ({ details, price, prices }) => {
       data: data
     }]
   }
-  
+
   return (
     <div className="stockDetailBody">
       <div className="contentChart">
@@ -127,7 +127,7 @@ const StockDetailBody = ({ details, price, prices }) => {
 
 // Main Components
 const StockDetails = () => {
-// useState
+  // useState
   const stcd = useParams().stcd
   const [price, setPrice] = useState([{}])
   const [prices, setPrices] = useState([{
@@ -136,30 +136,37 @@ const StockDetails = () => {
   const [details, setDetails] = useState([{}])
 
 
-// useEffect
+  // useEffect
   useEffect(() => {
     axios({
       method: 'get',
       url: '/api/kr/valuation/',
-      params: { stcd__contains: stcd }
+      params: {
+        stcd__contains: stcd,
+        limit: 1
+      }
     }).then(
       res => {
         const data = res.data.results
         setDetails(data[data.length - 1])
       }
-      )
-    }, [stcd])
-    
-    useEffect(() => {
-      axios({
-        method: 'get',
-        url: '/api/kr/stockprice/',
-        params: { stcd__contains: stcd }
-      }).then(
-        res => {
-          const data = res.data.results
-          setPrice(data[data.length - 1])
-          setPrices(data.slice(-200))
+    )
+  }, [stcd])
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: '/api/kr/stockprice/',
+      params: {
+        stcd__contains: stcd,
+        limit: 300
+      }
+    }).then(
+      res => {
+        const data = res.data.results.reverse()
+        console.log(res.data.results)
+        setPrice(data[data.length - 1])
+        setPrices(data.slice())
       }
     )
   }, [stcd])

@@ -1,0 +1,21 @@
+.content {
+  display: flex;
+  padding: 2rem;
+  width: calc(100vw - 40px);
+  background: gray;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  padding: 2rem;
+  height: 4rem;
+  font-size: 3rem;
+  font-weight: 700;
+  background-color: white;
+  color: var(--main-color1);
+}
+
+.bodyItem {
+  background-color: red;
+}

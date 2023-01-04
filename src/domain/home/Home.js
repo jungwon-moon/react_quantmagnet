@@ -4,7 +4,9 @@ import axios from "axios"
 import Highcharts from 'highcharts'
 import wordCloud from 'highcharts/modules/wordcloud.js'
 import HighchartsReact from 'highcharts-react-official'
-import { getKeywordsTime } from '../utils/utils'
+import { getKeywordsTime } from '../../common/utils/utils'
+import { BarLoader } from "react-spinners";
+import { loader_override } from "../../common/export_const"
 
 wordCloud(Highcharts)
 
@@ -13,6 +15,7 @@ const Home = () => {
   // useState
   const width = window.innerWidth
 
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState('')
   const options = {
     chart: {
@@ -46,7 +49,7 @@ const Home = () => {
             width: width
           },
           caption: {
-            text: parseInt(getKeywordsTime())+5
+            text: parseInt(getKeywordsTime()) + 5
           }
         }
       }]
@@ -56,17 +59,17 @@ const Home = () => {
 
   // useEffect
   useEffect(() => {
-    console.log(getKeywordsTime())
+    setLoading(true)
     axios({
       method: 'get',
-      url: '/api/categorykeywords/',
+      url: '/api/categorykeywords',
       params: {
-        date__contains: getKeywordsTime(),
-        category_code__contains: '002000000'
+        code: '002000000',
+        format: 'json'
       }
     }).then(
       res => {
-        const results = res.data.results
+        const results = res.data
         const keywords = results.map(
           x => {
             let y = {}
@@ -75,13 +78,16 @@ const Home = () => {
             return y
           })
         setData(keywords)
+        setLoading(false)
       })
   }, [])
 
 
   return (
     <>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      {loading ? <BarLoader cssOverride={loader_override} size={150} />
+        : <HighchartsReact highcharts={Highcharts} options={options} />
+      }
     </>
   )
 }
