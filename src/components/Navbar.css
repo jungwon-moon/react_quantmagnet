@@ -41,11 +41,12 @@
 .navbar_end {
   display: flex;
   align-self: flex-start;
+  align-self: center;
+  height: 43px;
 }
 
 .navbar_user {
   list-style: none;
-  padding: 8px 12px;
   display: flex;
   margin: 0;
 }
@@ -63,17 +64,20 @@
 /* 검색어 입력 + 검색 버튼 */
 .navbar .search_box {
   width: 250px;
+  border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  border: 1px solid var(--main-color3)
 }
 
 /* 검색어 입력 INPUT */
 .navbar .search_input {
   width: calc(100% - 60px);
+  height: 43px;
+  margin: 0px;
+  padding: 0px 12px;
   border: none;
   outline: none;
 }
@@ -91,8 +95,9 @@
   /* display: flex; */
   display: none;
   flex-direction: column;
-  border-radius: 40px;
+  border-radius: 5px;
   background-color: var(--main-color4);
+  border: 1px solid black;
 }
 
 .search_items .search_item_focus {

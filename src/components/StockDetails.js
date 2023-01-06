@@ -140,14 +140,14 @@ const StockDetails = () => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/api/kr/valuation/',
+      url: '/api/kr/val-det/',
       params: {
         stcd__contains: stcd,
-        limit: 1
+        // limit: 1
       }
     }).then(
       res => {
-        const data = res.data.results
+        const data = res.data
         setDetails(data[data.length - 1])
       }
     )
