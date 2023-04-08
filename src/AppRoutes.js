@@ -1,9 +1,9 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 
-import Home from './domain/home/Home'
-// import Home from './domain/home/Home2'
+// import Home from './domain/home/Home'
+import Home from './domain/home/Home2'
 import NotFound from './components/NotFound'
 
 import LoginPage from './auth/LoginPage'
@@ -25,7 +25,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* <Route path="" element={<Navbar />} > */}
+      <Route path="" element={<Navbar />} >
 
         <Route path="/" element={<Home />} />
 
@@ -50,7 +50,7 @@ function AppRoutes() {
         <Route path="calculator/assetvalue" element={<AssetValue />} />
 
         <Route path="*" element={<NotFound />} />
-      {/* </Route> */}
+      </Route>
     </Routes>
   )
 }
