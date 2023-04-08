@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 // import Navbar from "./components/Navbar";
 
 import Home from './domain/home/Home'
+// import Home from './domain/home/Home2'
 import NotFound from './components/NotFound'
 
 import LoginPage from './auth/LoginPage'
@@ -24,29 +25,32 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* <Route path="" element={<Navbar />} > */}
 
-      {authenticated === false
-        ? <>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-        </>
-        : <>
-          <Route path="login" element={<Navigate replace to="/" />} />
-          <Route path="register" element={<Navigate replace to="/" />} />
-        </>
-      }
-      <Route path="stockdetails/:stcd" element={<StockDetails />} />
+        <Route path="/" element={<Home />} />
 
-      <Route path="strategy" element={<Strategy />} />
-      <Route path="strategy/screener" element={<Screener />} />
-      <Route path="strategy/technicalindicator" element={<TechnicalIndicator />} />
-      <Route path="strategy/valuation" element={<Valuation />} />
+        {authenticated === false
+          ? <>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </>
+          : <>
+            <Route path="login" element={<Navigate replace to="/" />} />
+            <Route path="register" element={<Navigate replace to="/" />} />
+          </>
+        }
+        <Route path="stockdetails/:stcd" element={<StockDetails />} />
 
-      <Route path="calculator" element={<Calculator />} />
-      <Route path="calculator/assetvalue" element={<AssetValue />} />
+        <Route path="strategy" element={<Strategy />} />
+        <Route path="strategy/screener" element={<Screener />} />
+        <Route path="strategy/technicalindicator" element={<TechnicalIndicator />} />
+        <Route path="strategy/valuation" element={<Valuation />} />
 
-      <Route path="*" element={<NotFound />} />
+        <Route path="calculator" element={<Calculator />} />
+        <Route path="calculator/assetvalue" element={<AssetValue />} />
+
+        <Route path="*" element={<NotFound />} />
+      {/* </Route> */}
     </Routes>
   )
 }

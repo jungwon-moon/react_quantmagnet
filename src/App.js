@@ -1,5 +1,5 @@
 import AppRoutes from "./AppRoutes";
-import Navbar from './components/Navbar'
+import Navbar from "./components/Navbar";
 import RouteChangeTracker from "./RouteChangeTracker";
 
 function App() {
