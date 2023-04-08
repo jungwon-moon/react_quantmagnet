@@ -1,7 +1,8 @@
+$main-color1: #18214d;
+
 :root {
   /* main */
-  // --main-color1: #102027;
-  --main-color1: #18214d;
+  --main-color1: $main-color1;
   /* hover */
   --main-color2: #37473f;
   /*  */
@@ -13,6 +14,4 @@
   --main-color5: #dfdfdf;
   /* logo */
   --logo-color: var(--main-color4);
-
-  
 }
