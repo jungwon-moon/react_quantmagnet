@@ -1,0 +1,104 @@
+@import "../styles.scss";
+
+.header {
+  align-items: center;
+  border: 1px solid $main-color5;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: $main-color2;
+  display: flex;
+  font-weight: 600;
+  font-size: 20px;
+  justify-content: space-between;
+  padding: 8px 12px;
+  position: fixed;
+  top: 0;
+  height: 40px;
+  width: calc(100% - 24px);
+  z-index: 9999;
+}
+
+.header a {
+  text-decoration: none;
+  color: $main-color6;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+}
+.left {
+  // background-color: red;
+  width: calc(100%/3);
+}
+.center {
+  // background-color: blue;
+  width: calc(100%/3);
+}
+.right {
+  // background-color: aqua;
+  width: calc(100%/3);
+}
+.right a {
+  // background-color: red;
+  float: right;
+}
+
+.headerLogo{
+  font-size: 30px;
+  letter-spacing: -4px;
+}
+
+// 검색창
+// 검색창 INPUT
+
+.searchInput{
+  background-color: $main-color3;
+  border: 0;
+  margin:0;
+  border-radius: 100px;
+  color: $main-color6;
+  font-size: 15px;
+  font-weight: 400;
+  width: calc(100% - 40px);
+  height: 24px;
+  padding: 8px 8px 8px 32px;
+}
+
+
+.searchItems{
+  display:flex;
+  position: fixed;
+  flex-direction: column;
+  width: calc(100vw/3 - 22px);
+  border: 0;
+  border-radius: 10px;
+  top: 56px;
+  left: calc(100vw/3);
+  padding: 10px;
+  margin: 0px;
+  background-color: $main-color2;
+  border: 1px solid $main-color5;
+}
+
+.searchItem {
+  cursor: pointer;
+  color: $main-color6;
+}
+
+// Active SearchBar
+.searchItems {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.searchItem > div {
+  display: block;
+  padding: 5px;
+  // width: 100%;
+}
+
+.searchItemFocus {
+  display:block;
+  background-color: $main-color3;
+  border-radius: 5px;
+  width: calc(100% - 10px);
+}

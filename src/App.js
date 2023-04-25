@@ -1,16 +1,14 @@
 import AppRoutes from "./AppRoutes";
-// import Navbar from "./components/Navbar";
 import RouteChangeTracker from "./RouteChangeTracker";
+import "./styles.scss"
 
 function App() {
+  // Google Analytics 트래커
   RouteChangeTracker()
 
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="main-page">
-        <AppRoutes />
-      </div>
+      <AppRoutes />
     </>
   )
 }

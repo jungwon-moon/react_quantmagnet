@@ -1,0 +1,23 @@
+@import "../styles.scss";
+
+
+.menu {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.menuItem {
+  padding: 15px 15px 15px 20px;
+  font-size: 17px;
+  font-weight: 500;
+  color: $main-color6;
+}
+
+.footer {
+  position: absolute;
+  color: $main-color5;
+  font-size: 12px;
+  left: 10px;
+  bottom: 10px;
+}

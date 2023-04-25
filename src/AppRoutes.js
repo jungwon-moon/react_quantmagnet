@@ -1,6 +1,9 @@
+import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Navbar from "./components/Navbar";
+
+import Layout from "./components/Layout"
 
 // import Home from './domain/home/Home'
 import Home from './domain/home/Home2'
@@ -25,10 +28,8 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="" element={<Navbar />} >
-
+      <Route path="" element={<Layout />} >
         <Route path="/" element={<Home />} />
-
         {authenticated === false
           ? <>
             <Route path="login" element={<LoginPage />} />
@@ -55,4 +56,4 @@ function AppRoutes() {
   )
 }
 
-export default AppRoutes
+export default React.memo(AppRoutes)

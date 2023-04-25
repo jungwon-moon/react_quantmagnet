@@ -2,23 +2,6 @@ html {
   font-size: 10px;
 }
 
-:root {
-  /* main */
-  --main-color1: #102027;
-  --main-color1: #131722;
-  /* hover */
-  --main-color2: #37473f;
-  /*  */
-  --main-color3: #62727b;
-  /* back, bar */
-  /* --main-color4: #d6d6d9; */
-  --main-color4: #ffffff;
-  /* --main-color5: #ced4da; */
-  --main-color5: #dfdfdf;
-  /* logo */
-  --logo-color: var(--main-color4);
-}
-
 .App {
   text-align: center;
 }

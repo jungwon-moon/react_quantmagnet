@@ -1,0 +1,66 @@
+@import "../styles.scss";
+
+.top {
+  width: 100%;
+  height: 57px;
+  position: fixed;
+  z-index: 9999;
+}
+
+.left {
+  top: 57px;
+  width: calc(100%/3);
+  height: calc(100vh - 57px);
+  position: fixed;
+}
+
+.center {
+  position: relative;
+  top: 57px;
+  left: calc(100%/3);
+  width: calc(100%/3);
+  float: left;
+}
+
+.right {
+  position: fixed;
+  top: 57px;
+  float: right;
+  left: calc(200%/3);
+  width: calc(100%/3);
+}
+
+.tabletLeft {
+  top: 57px;
+  height: calc(100vh - 57px);
+  position: fixed;
+  width: calc(100%/4);
+}
+
+.tabletCenter {
+  top: 57px;
+  position: relative;
+  width: calc(100%/2);
+  left: calc(100%/4);
+  float: left;
+}
+
+.tabletRight {
+  position: fixed;
+  top: 57px;
+  left: calc(300%/4);
+  width: calc(100%/4);
+}
+
+.mobileLeft {
+  display: none;
+}
+
+.mobileCenter {
+  position: relative;
+  top: 57px;
+}
+
+.mobileRight {
+  display: none;
+}
