@@ -1,0 +1,20 @@
+[
+  {
+    "title": "홈",
+    "link": "/",
+    "icon": "faHouse",
+    "iconName": "house"
+  },
+  {
+    "title": "투자전략",
+    "link": "/strategy",
+    "icon": "faMagnifyingGlassChart",
+    "iconName": "magnifying-glass-chart"
+  },
+  {
+    "title": "계산기",
+    "link": "/calculator",
+    "icon": "house",
+    "iconName": "calculator"
+  }
+]

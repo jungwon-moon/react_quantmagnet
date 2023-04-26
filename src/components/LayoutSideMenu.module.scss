@@ -8,10 +8,20 @@
 }
 
 .menuItem {
+  display: flex;
+  align-items: center;
   padding: 15px 15px 15px 20px;
+  width: calc(60%);
   font-size: 17px;
   font-weight: 500;
   color: $main-color6;
+}
+
+.menuIcon {
+  // color: $main-color6;
+  padding: 0px 10px 0px 0px;
+  height: 25px;
+  width: 25px;
 }
 
 .footer {
