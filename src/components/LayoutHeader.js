@@ -1,15 +1,17 @@
 import style from "./LayoutHeader.module.scss"
 import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
 import React, { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { authUser, logoutUser } from "../store/modules/auth"
 import stockListJson from "../store/json/stockList.json"
 
 
 
 const Search = ({ isDropDown, searchWord, onChange, onKeyPress,
-  onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
+  onMouseDown, onMouseOver, searchItems, searchItemsIndex, onClickXmark }) => {
   return (
     <div className={style.searchBox}>
       <input
@@ -18,7 +20,7 @@ const Search = ({ isDropDown, searchWord, onChange, onKeyPress,
         onChange={onChange}
         onKeyUp={onKeyPress}
         placeholder={'검색'} />
-
+      <FontAwesomeIcon icon={faXmark} className={style.searchBoxXMark} onClick={onClickXmark} />
       {isDropDown && searchItems.length !== 0
         ? <SearchItems
           onMouseDown={onMouseDown}
@@ -35,15 +37,15 @@ const Search = ({ isDropDown, searchWord, onChange, onKeyPress,
 const SearchItems = ({ onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
   return (
     <ul className={style.searchItems}    >
-      {searchItems.map((d, index) => (
+      {searchItems.map((item, index) => (
         <div className={style.searchItem} key={index}
-          onMouseDown={() => onMouseDown(d)}
+          onMouseDown={() => onMouseDown(item)}
           onMouseEnter={() => onMouseOver(index)}>
             {searchItemsIndex === index
               ? <div className={style.searchItemFocus}>
-                {d.stcd}   {d.stnm}</div>
+                {item.stcd}   {item.stnm}</div>
               : <div>
-                {d.stcd}   {d.stnm}</div>
+                {item.stcd}   {item.stnm}</div>
             }
           </div>
       ))}
@@ -70,6 +72,9 @@ const LayoutHeader = () => {
     } else {
       const filterList = stockListJson.filter(jsItem =>
         jsItem.stcd.includes(searchWord) || jsItem.stnm.includes(searchWord))
+      if (filterList.length >= 10) {
+        filterList.length = 10
+      }
       setStockList(filterList)
     }
   }
@@ -93,6 +98,10 @@ const LayoutHeader = () => {
 
   const onMouseDownDropDownItem = (clickedItem) => {
     navigate(`/stockdetails/${clickedItem.stcd}`)
+  }
+  
+  const onClickXmark = () => {
+    setSearchWord("")
   }
   
   const onBlurSearch = () => {
@@ -161,6 +170,7 @@ const LayoutHeader = () => {
                 onFocus={onFocusDropDown}
                 onMouseDown={onMouseDownDropDownItem}
                 onMouseOver={onMouseOverSearch}
+                onClickXmark={onClickXmark}
                 searchItems={stockList}
                 searchItemsIndex={stockListIndex}
               />

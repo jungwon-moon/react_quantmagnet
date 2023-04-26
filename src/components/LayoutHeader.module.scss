@@ -25,47 +25,64 @@
   cursor: pointer;
   padding: 0 0 0 4px;
 }
+
 .left {
   // background-color: red;
   width: calc(100%/3);
 }
+
 .center {
   // background-color: blue;
   width: calc(100%/3);
 }
+
 .right {
   // background-color: aqua;
   width: calc(100%/3);
 }
+
 .right a {
   // background-color: red;
   float: right;
 }
 
-.headerLogo{
+.headerLogo {
   font-size: 30px;
   letter-spacing: -4px;
 }
 
 // 검색창
 // 검색창 INPUT
+.searchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: calc(100%);
+  background-color: $main-color3;
+  border-radius: 100px;
+}
 
-.searchInput{
+.searchInput {
   background-color: $main-color3;
   border: 0;
-  margin:0;
-  border-radius: 100px;
+  margin: 0px 10px 0px 0px;
+  padding: 0;
   color: $main-color6;
   font-size: 15px;
   font-weight: 400;
-  width: calc(100% - 40px);
+  width: calc(100% - 60px);
   height: 24px;
-  padding: 8px 8px 8px 32px;
+}
+
+.searchBoxXMark {
+  color: $main-color6;
+  height: 20px;
 }
 
 
-.searchItems{
-  display:flex;
+.searchItems {
+  display: flex;
   position: fixed;
   flex-direction: column;
   width: calc(100vw/3 - 22px);
@@ -90,14 +107,14 @@
   padding: 10px;
 }
 
-.searchItem > div {
+.searchItem>div {
   display: block;
   padding: 5px;
   // width: 100%;
 }
 
 .searchItemFocus {
-  display:block;
+  display: block;
   background-color: $main-color3;
   border-radius: 5px;
   width: calc(100% - 10px);
