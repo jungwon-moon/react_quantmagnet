@@ -1,17 +1,20 @@
 import style from "./LayoutHeader.module.scss"
-import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
 import React, { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
+import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
+import MainMenu from "./LayoutMenu"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faXmark, faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import { authUser, logoutUser } from "../store/modules/auth"
 import stockListJson from "../store/json/stockList.json"
 
 
 
-const Search = ({ isDropDown, searchWord, onChange, onKeyPress,
+
+const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress,
   onMouseDown, onMouseOver, searchItems, searchItemsIndex, onClickXmark }) => {
+
   return (
     <div className={style.searchBox}>
       <input
@@ -23,31 +26,34 @@ const Search = ({ isDropDown, searchWord, onChange, onKeyPress,
       <FontAwesomeIcon icon={faXmark} className={style.searchBoxXMark} onClick={onClickXmark} />
       {isDropDown && searchItems.length !== 0
         ? <SearchItems
+          style={style}
           onMouseDown={onMouseDown}
           onMouseOver={onMouseOver}
           searchItems={searchItems}
           searchItemsIndex={searchItemsIndex}
         />
-        : <></>
+        : null
       }
     </div>
   )
 }
 
-const SearchItems = ({ onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
+const SearchItems = ({ style, onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
   return (
     <ul className={style.searchItems}    >
       {searchItems.map((item, index) => (
         <div className={style.searchItem} key={index}
           onMouseDown={() => onMouseDown(item)}
           onMouseEnter={() => onMouseOver(index)}>
-            {searchItemsIndex === index
-              ? <div className={style.searchItemFocus}>
-                {item.stcd}   {item.stnm}</div>
-              : <div>
-                {item.stcd}   {item.stnm}</div>
-            }
-          </div>
+          {searchItemsIndex === index
+            ? <div className={style.searchItemFocus}>
+                {item.stcd}   {item.stnm}
+              </div>
+            : <div>
+                {item.stcd}   {item.stnm}
+            </div>
+          }
+        </div>
       ))}
     </ul>
   )
@@ -60,6 +66,8 @@ const LayoutHeader = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const [isMenu, setIsMenu] = useState(false)
+  const [isSearch, setIsSearch] = useState(false)
   const [isDropDown, setIsDropDown] = useState(false)
   const [searchWord, setSearchWord] = useState("")
   const [stockList, setStockList] = useState([])
@@ -80,7 +88,7 @@ const LayoutHeader = () => {
   }
 
   const authenticated = useSelector(state => state.auth.authenticated)
-  // console.log(authenticated)
+  // console.log("authenticated ", authenticated)
 
 
   // useEffect
@@ -90,8 +98,15 @@ const LayoutHeader = () => {
 
   useEffect(setList, [searchWord])
 
-  
+
   // Events
+  const onToggleMenu = () => {
+    setIsMenu(!isMenu)
+  }
+  const onToggleSearch = () => {
+    setIsSearch(!isSearch)
+  }
+
   const onClickLogout = () => {
     dispatch(logoutUser())
   }
@@ -99,25 +114,25 @@ const LayoutHeader = () => {
   const onMouseDownDropDownItem = (clickedItem) => {
     navigate(`/stockdetails/${clickedItem.stcd}`)
   }
-  
+
   const onClickXmark = () => {
     setSearchWord("")
   }
-  
+
   const onBlurSearch = () => {
     setIsDropDown(false)
   }
+
   const onFocusDropDown = () => {
     setIsDropDown(true)
   }
-  
+
   const onChangeSearch = (e) => {
     setSearchWord(e.target.value)
     setStockListIndex(0)
     setIsDropDown(true)
-    }
-  
-  
+  }
+
   const onMouseOverSearch = (item) => {
     setStockListIndex(item)
   }
@@ -142,57 +157,122 @@ const LayoutHeader = () => {
           setStockListIndex(stockListIndex + 1)
         }
         break
-        
+
       case "Escape":
         break
       // no default
     }
   }
 
+  // render
+  const desktopAndTablet = (
+    <div className={style.header}>
+      <div className={style.left}>
+        <div className={style.headerLogo}>
+          <a href="/">Quant Magnet</a>
+        </div>
+      </div>
+      <div className={style.center}>
+        <div onBlur={onBlurSearch}>
+          <Search
+            style={dStyle}
+            isDropDown={isDropDown}
+            searchWord={searchWord}
+            onChange={onChangeSearch}
+            onKeyPress={onKeyPressSearch}
+            onBlur={onBlurSearch}
+            onFocus={onFocusDropDown}
+            onMouseDown={onMouseDownDropDownItem}
+            onMouseOver={onMouseOverSearch}
+            onClickXmark={onClickXmark}
+            searchItems={stockList}
+            searchItemsIndex={stockListIndex}
+          />
+        </div>
+      </div>
+      <div className={style.right}>
+        {authenticated === false ?
+          <a href="/login">로그인</a>
+          : <a href="/" onClick={onClickLogout}>로그아웃</a>
+        }
+      </div>
+    </div>
+  )
+  const mobile = (
+    <div className={style.headerM}>
+      <div className={style.leftM}>
+        <FontAwesomeIcon
+          icon={faBars}
+          className={style.buttonM}
+          onClick={onToggleMenu} />
+      </div>
+      {
+        isSearch
+          ? <Search
+            style={mStyle}
+            isDropDown={isDropDown}
+            searchWord={searchWord}
+            onChange={onChangeSearch}
+            onKeyPress={onKeyPressSearch}
+            onBlur={onBlurSearch}
+            onFocus={onFocusDropDown}
+            onMouseDown={onMouseDownDropDownItem}
+            onMouseOver={onMouseOverSearch}
+            onClickXmark={onClickXmark}
+            searchItems={stockList}
+            searchItemsIndex={stockListIndex} />
+          : <Link to="" className={style.centerM}>QuantMagnet</Link>
+      }
+      <div className={style.rightM}>
+        <FontAwesomeIcon
+          className={style.buttonM}
+          icon={faMagnifyingGlass}
+          onClick={onToggleSearch} />
+      </div>
+      {
+        isMenu &&
+        <>
+          <MainMenu
+            authenticated={authenticated}
+            onClickLogout={onClickLogout}
+            setIsMenu={setIsMenu}
+          />
+          <div className={style.menuBack} onClick={onToggleMenu}></div>
+        </>
+      }
+    </div>
+  )
 
   return (
     <>
       <Desktop>
-        <div className={style.header}>
-          <div className={style.left}>
-            <div className={style.headerLogo}>
-              <a href="/">Quant Magnet</a>
-            </div>
-          </div>
-          <div className={style.center}>
-            <div onBlur={onBlurSearch}>
-              <Search
-                isDropDown={isDropDown}
-                searchWord={searchWord}
-                onChange={onChangeSearch}
-                onKeyPress={onKeyPressSearch}
-                onBlur={onBlurSearch}
-                onFocus={onFocusDropDown}
-                onMouseDown={onMouseDownDropDownItem}
-                onMouseOver={onMouseOverSearch}
-                onClickXmark={onClickXmark}
-                searchItems={stockList}
-                searchItemsIndex={stockListIndex}
-              />
-            </div>
-          </div>
-          <div className={style.right}>
-            {authenticated === false ?
-              <a href="/login">로그인</a>
-              : <a href="/" onClick={onClickLogout}>로그아웃</a>
-            }
-          </div>
-        </div>
+        {desktopAndTablet}
       </Desktop>
       <Tablet>
-        <></>
+        {desktopAndTablet}
       </Tablet>
-
       <Mobile>
-        <></>
+        {mobile}
       </Mobile>
     </>
   )
+}
+
+const dStyle = {
+  "searchBox": style.searchBox,
+  "searchInput": style.searchInput,
+  "searchBoxXMark": style.searchBoxXMark,
+  "searchItems": style.searchItems,
+  "searchItem": style.searchItem,
+  "searchItemFocus": style.searchItemFocus
+}
+const mStyle = {
+  "searchBox": style.searchBoxM,
+  "searchInput": style.searchInput,
+  "searchBoxXMark": style.searchBoxXMark,
+  "searchItems": style.searchItemsM,
+  "searchItem": style.searchItemM,
+  "searchItemFocus": style.searchItemFocus
 }
 
 export default React.memo(LayoutHeader)
