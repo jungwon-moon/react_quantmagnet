@@ -31,3 +31,24 @@
   left: 10px;
   bottom: 10px;
 }
+
+.menuM {
+  display: flex;
+  background-color: $main-color2;
+  flex-direction: column;
+  border-top: 1px solid $main-color3;
+  position: fixed;
+  top: 56px;
+  width: 100%;
+  z-index: 9000;
+}
+
+.authMenu {
+  padding: 16px;
+}
+
+.authMenu a{
+  text-decoration: none;
+  color: $main-color6;
+  font-weight: 400;
+}
