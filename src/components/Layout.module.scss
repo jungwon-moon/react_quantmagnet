@@ -1,17 +1,18 @@
 @import "../styles.scss";
 
 .top {
+  position: fixed;
   width: 100%;
   height: 57px;
-  position: fixed;
   z-index: 9999;
 }
 
 .left {
+  position: fixed;
   top: 57px;
   width: calc(100%/3);
   height: calc(100vh - 57px);
-  position: fixed;
+  margin-top: 10px;
 }
 
 .center {
@@ -30,14 +31,14 @@
   width: calc(100%/3);
 }
 
-.tabletLeft {
+.leftT {
   top: 57px;
   height: calc(100vh - 57px);
   position: fixed;
   width: calc(100%/4);
 }
 
-.tabletCenter {
+.centerT {
   top: 57px;
   position: relative;
   width: calc(100%/2);
@@ -45,22 +46,22 @@
   float: left;
 }
 
-.tabletRight {
+.rightT {
   position: fixed;
   top: 57px;
   left: calc(300%/4);
   width: calc(100%/4);
 }
 
-.mobileLeft {
+.leftM {
   display: none;
 }
 
-.mobileCenter {
+.centerM {
   position: relative;
   top: 57px;
 }
 
-.mobileRight {
+.rightM {
   display: none;
 }

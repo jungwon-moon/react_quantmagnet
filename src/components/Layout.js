@@ -1,9 +1,8 @@
-import layout from "./Layout.module.scss"
+import style from "./Layout.module.scss"
 import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
-import { useState, useEffect, useRef } from "react"
 import LayoutHeader from "./LayoutHeader"
-import LayoutSideMenu from "./LayoutSideMenu"
-import { Outlet, useNavigate } from 'react-router-dom';
+import MainMenu  from "./LayoutMenu"
+import { Outlet } from 'react-router-dom';
 
 
 const Layout = () => {
@@ -11,49 +10,51 @@ const Layout = () => {
   return (
     <>
       <Desktop>
-        <div className={layout.full}>
-          <div className={layout.top}>
+        <div className={style.full}>
+          <div className={style.top}>
             <LayoutHeader />
           </div>
-          <div className={layout.left}>
-            <LayoutSideMenu />
+          
+          <div className={style.left}>
+            <MainMenu />
           </div>
-          <div className={layout.center}>
+          
+          <div className={style.center}>
             <Outlet />
           </div>
-          <div className={layout.right}>
+          
+          <div className={style.right}>
           </div>
         </div>
       </Desktop>
 
       <Tablet>
-        <div className={layout.full}>
-          <div className={layout.top}>
+        <div className={style.full}>
+          <div className={style.top}>
             <LayoutHeader />
           </div>
-          <div className={layout.tabletLeft}>
-            <LayoutSideMenu />
+          <div className={style.leftT}>
+            <MainMenu />
           </div>
-          <div className={layout.tabletCenter}>
+          <div className={style.centerT}>
             <Outlet />
           </div>
-          <div className={layout.tabletRight}>
+          <div className={style.rightT}>
           </div>
         </div>
       </Tablet>
       
       <Mobile>
-        <div className={layout.full}>
-          <div className={layout.mobileTop}>
+        <div className={style.full}>
+          <div className={style.topM}>
             <LayoutHeader />
           </div>
-          <div className={layout.mobileLeft}>
-            <LayoutSideMenu />
+          <div className={style.leftM}>
           </div>
-          <div className={layout.mobileCenter}>
+          <div className={style.centerM}>
             <Outlet />
           </div>
-          <div className={layout.mobileRight}>
+          <div className={style.rightM}>
           </div>
         </div>
       </Mobile>
