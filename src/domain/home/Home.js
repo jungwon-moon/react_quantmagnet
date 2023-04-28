@@ -1,33 +1,33 @@
-import './Home.css'
+import style from "./Home.module.scss"
 import { useState, useEffect } from "react"
 import axios from "axios"
-import Highcharts from 'highcharts'
-import wordCloud from 'highcharts/modules/wordcloud.js'
-import HighchartsReact from 'highcharts-react-official'
-import { getKeywordsTime } from '../../common/utils/utils'
-import { BarLoader } from "react-spinners";
+import Highcharts from "highcharts"
+import wordCloud from "highcharts/modules/wordcloud.js"
+import HighchartsReact from "highcharts-react-official"
+import { BarLoader } from "react-spinners"
 import { loader_override } from "../../common/export_const"
 
 wordCloud(Highcharts)
 
 // Main Components
 const Home = () => {
+  console.log("Home")
   // useState
-  const width = window.innerWidth
 
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState('')
   const options = {
     chart: {
+      backgroundColor: '#202020',
       type: "wordcloud",
-      width: width / 2
     },
     series: [{
       data: data,
-      name: 'count'
+      name: "count"
     }],
     title: {
-      text: '<b>경제 뉴스 키워드</b>'
+      text: "<b>경제 뉴스 키워드</b>",
+      style: {"color": "#e9e9e9", "fontSize": "30px"}
     },
     accessibility: {
       enabled: false
@@ -39,23 +39,8 @@ const Home = () => {
     // 하단 캡션
     caption: {
       text: null
-    },
-    // 반응형 차트 설정
-    responsive: {
-      rules: [{
-        condition: { maxWidth: 768 },
-        chartOptions: {
-          chart: {
-            width: width
-          },
-          caption: {
-            text: parseInt(getKeywordsTime()) + 5
-          }
-        }
-      }]
     }
   }
-
 
   // useEffect
   useEffect(() => {
@@ -76,20 +61,23 @@ const Home = () => {
             y['name'] = x['named_entity']
             y['weight'] = x['named_entity_count']
             return y
-          })
+          }
+        )
         setData(keywords)
         setLoading(false)
-      })
-  }, [])
-
-
-  return (
-    <>
-      {loading ? <BarLoader cssOverride={loader_override} size={150} />
-        : <HighchartsReact highcharts={Highcharts} options={options} />
       }
-    </>
+    )
+  }, [])
+  return (
+    <div className={style.home}>
+      <div className={style.contents}>
+        {loading ? <BarLoader cssOverride={loader_override} size={150} />
+          : <HighchartsReact highcharts={Highcharts} options={options} />
+        }
+      </div>
+    </div>
   )
 }
 
-export default Home;
+
+export default Home
