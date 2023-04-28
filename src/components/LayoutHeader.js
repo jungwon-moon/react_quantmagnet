@@ -39,7 +39,8 @@ const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress, onBlur,
   )
 }
 
-const SearchItems = ({ style, onBlur, onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
+const SearchItems = ({ style, onBlur, onMouseDown,
+  onMouseOver, searchItems, searchItemsIndex }) => {
   return (
     <ul className={style.searchItems} onClick={onBlur}>
       {searchItems.map((item, index) => (

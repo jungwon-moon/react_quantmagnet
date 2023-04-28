@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Card from "../../components/DomainCard"
-import calculatorListJS from "../../store/json/calculatorList.json"
+import calculatorListJson from "../../store/json/calculatorList.json"
 
 import style from "./Calculator.module.scss"
 
@@ -26,7 +26,7 @@ const Calculator = () => {
         금융 계산기
       </div>
       {
-        calculatorListJS.map((item, index) => (
+        calculatorListJson.map((item, index) => (
           <Card key={index}
             title={item.title}
             link={item.link}

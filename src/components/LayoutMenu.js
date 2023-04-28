@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHouse, faCalculator, faMagnifyingGlassChart } from "@fortawesome/free-solid-svg-icons"
-import menuListJS from "../store/json/menuList.json"
+import menuListJson from "../store/json/menuList.json"
 
 const menuIcons = [
   faHouse,
@@ -42,7 +42,7 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
   const desktopAndTablet = (
     <>
       <div className={style.menu}>
-        {menuListJS.map((item, index) => (
+        {menuListJson.map((item, index) => (
           <MenuItem key={index}
             title={item.title}
             link={item.link}
@@ -59,7 +59,7 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
 
   const mobile = (
       <div className={style.menuM} onClick={onClickIsMenu}>
-        {menuListJS.map((item, index) => (
+        {menuListJson.map((item, index) => (
           <MenuItem key={index}
             title={item.title}
             link={item.link}
