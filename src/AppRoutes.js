@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 
 import Layout from "./components/Layout"
 
@@ -30,6 +30,7 @@ function AppRoutes() {
     <Routes>
       <Route path="" element={<Layout />} >
         <Route path="/" element={<Home />} />
+        
         {authenticated === false
           ? <>
             <Route path="login" element={<LoginPage />} />
@@ -40,6 +41,7 @@ function AppRoutes() {
             <Route path="register" element={<Navigate replace to="/" />} />
           </>
         }
+
         <Route path="stockdetails/:stcd" element={<StockDetails />} />
 
         <Route path="strategy" element={<Strategy />} />
@@ -50,8 +52,9 @@ function AppRoutes() {
         <Route path="calculator" element={<Calculator />} />
         <Route path="calculator/assetvalue" element={<AssetValue />} />
 
-        <Route path="*" element={<NotFound />} />
       </Route>
+
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   )
 }

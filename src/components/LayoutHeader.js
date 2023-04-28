@@ -12,7 +12,7 @@ import stockListJson from "../store/json/stockList.json"
 
 
 
-const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress,
+const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress, onBlur,
   onMouseDown, onMouseOver, searchItems, searchItemsIndex, onClickXmark }) => {
 
   return (
@@ -27,6 +27,7 @@ const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress,
       {isDropDown && searchItems.length !== 0
         ? <SearchItems
           style={style}
+          onBlur={onBlur}
           onMouseDown={onMouseDown}
           onMouseOver={onMouseOver}
           searchItems={searchItems}
@@ -38,9 +39,9 @@ const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress,
   )
 }
 
-const SearchItems = ({ style, onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
+const SearchItems = ({ style, onBlur, onMouseDown, onMouseOver, searchItems, searchItemsIndex }) => {
   return (
-    <ul className={style.searchItems}    >
+    <ul className={style.searchItems} onClick={onBlur}>
       {searchItems.map((item, index) => (
         <div className={style.searchItem} key={index}
           onMouseDown={() => onMouseDown(item)}
