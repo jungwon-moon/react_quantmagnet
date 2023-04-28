@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
 import { Provider } from 'react-redux'
-import store from './store'
+import store from './store/store'
 
 const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID
 ReactGA.initialize(TRACKING_ID)

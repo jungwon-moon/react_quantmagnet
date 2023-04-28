@@ -31,6 +31,14 @@
   width: calc(100%/3);
 }
 
+.content {
+  position: relative;
+  top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .leftT {
   top: 57px;
   height: calc(100vh - 57px);
@@ -39,8 +47,8 @@
 }
 
 .centerT {
-  top: 57px;
   position: relative;
+  top: 57px;
   width: calc(100%/2);
   left: calc(100%/4);
   float: left;

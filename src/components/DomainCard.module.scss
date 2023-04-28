@@ -1,0 +1,22 @@
+@import "../styles.scss";
+
+.card {
+  display: block;
+  background-color: $main-color2;
+  color: $main-color6;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  width: calc(100% - 40px);
+}
+
+.cardTitle {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cardItem {
+  font-size: 15px;
+  padding: 15px;
+}

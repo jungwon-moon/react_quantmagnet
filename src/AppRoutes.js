@@ -15,7 +15,7 @@ import Screener from './domain/strategy/Screener/Screener'
 import Valuation from './domain/strategy/Valuation/Valuation'
 import TechnicalIndicator from './domain/strategy/TechnicalIndicator/TechnicalIndicator'
 
-import Calculator from './domain/calculator/index'
+import Calculator from './domain/calculator/Calculator'
 import AssetValue from './domain/calculator/AssetValue/index'
 
 import StockDetails from './components/StockDetails'

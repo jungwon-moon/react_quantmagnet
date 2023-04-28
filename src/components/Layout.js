@@ -20,7 +20,9 @@ const Layout = () => {
           </div>
           
           <div className={style.center}>
-            <Outlet />
+            <div className={style.content}>
+              <Outlet />
+            </div>
           </div>
           
           <div className={style.right}>
@@ -37,7 +39,9 @@ const Layout = () => {
             <MainMenu />
           </div>
           <div className={style.centerT}>
-            <Outlet />
+            <div className={style.content}>
+              <Outlet />
+            </div>
           </div>
           <div className={style.rightT}>
           </div>
@@ -52,7 +56,9 @@ const Layout = () => {
           <div className={style.leftM}>
           </div>
           <div className={style.centerM}>
-            <Outlet />
+            <div className={style.content}>
+              <Outlet />
+            </div>
           </div>
           <div className={style.rightM}>
           </div>
