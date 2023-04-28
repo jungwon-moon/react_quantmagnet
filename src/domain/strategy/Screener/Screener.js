@@ -4,7 +4,7 @@ import './style.css'
 import SortTable from '../../../components/SortTable'
 import MultilRangeSlider from "../../../components/MultiRangeSlider";
 import { BarLoader } from "react-spinners";
-import { loader_override } from "../../../common/export_const"
+import { loader_override } from "../../../store/export_const"
 
 
 const filter = [

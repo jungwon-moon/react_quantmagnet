@@ -5,7 +5,7 @@ import Highcharts from "highcharts"
 import wordCloud from "highcharts/modules/wordcloud.js"
 import HighchartsReact from "highcharts-react-official"
 import { BarLoader } from "react-spinners"
-import { loader_override } from "../../common/export_const"
+import { loader_override } from "../../store/export_const"
 
 wordCloud(Highcharts)
 
