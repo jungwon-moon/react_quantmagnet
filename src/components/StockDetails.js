@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { comma } from '../common/utils/utils'
+import { comma } from '../utils/utils'
 import Chart from "react-apexcharts"
 import axios from "axios"
 import "./StockDetails.css"

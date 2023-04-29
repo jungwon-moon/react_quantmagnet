@@ -61,13 +61,15 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
 
   const mobile = (
       <div className={style.menuM} onClick={onClickIsMenu}>
-        {menuListJson.map((item, index) => (
+      {
+        menuListJson.map((item, index) => (
           <MenuItem key={index}
             title={item.title}
             link={item.link}
             icon={item.iconName}
           />
-        ))}
+        ))
+      }
         <div className={style.authMenu}>
           {
             authenticated === false
