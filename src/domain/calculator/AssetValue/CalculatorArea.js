@@ -1,9 +1,10 @@
 import { React } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons"
+import { faChartColumn } from "@fortawesome/free-solid-svg-icons"
 import inputListJson from "../../../store/json/assetValueInputList.json"
 
-import style from "./InputArea.module.scss"
+import style from "./CalculatorArea.module.scss"
 
 
 
@@ -33,12 +34,13 @@ const InputGroup = ({ title, variable, values, onChange }) => {
   )
 }
 
-const InputArea = ({ selected, values, title, description, onChange }) => {
+const CalculatorArea = ({ selected, values, outValues,
+  title, description, onChange }) => {
   const usedInput = inputListJson.filter(item =>
     !item.variable.includes(notUsedInput[selected]))
   return (
     <>
-      <div className={style.inputTitle}>
+      <div className={style.calcTitle}>
         {title} 계산기
         <FontAwesomeIcon
           icon={faCircleQuestion}
@@ -46,8 +48,8 @@ const InputArea = ({ selected, values, title, description, onChange }) => {
         />
         <div className={style.tooltip}>{description}</div>
       </div>
-      <div className={style.inputArea}>
-        <div>
+      <div className={style.calculatorArea}>
+        <div className={style.inputArea}>
           {
             usedInput.map((item, index) => (
               <InputGroup key={index}
@@ -58,16 +60,24 @@ const InputArea = ({ selected, values, title, description, onChange }) => {
             ))
           }
         </div>
+
+        <div className={style.chartArea}>
+          <FontAwesomeIcon
+            icon={faChartColumn}
+            className={style.chartIcon}
+          />
+        </div>
       </div>
     </>
   )
 }
 
 // global variable
+
 const notUsedInput = [
   "investment",
   "goal",
   "numOfYear"
 ]
 
-export default InputArea
+export default CalculatorArea

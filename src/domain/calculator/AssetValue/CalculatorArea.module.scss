@@ -1,12 +1,7 @@
 @import "../../../styles.scss";
 
-.inputArea {
-  background-color: $main-color2;
-  color: $main-color6;
-  width: 50%;
-}
 
-.inputTitle {
+.calcTitle {
   background-color: $main-color2;
   color: $main-color6;
   display: flex;
@@ -21,6 +16,16 @@
   width: 20px;
   height: 20px;
   padding: 5px;
+}
+
+.calculatorArea{
+  display: flex;
+}
+
+.inputArea {
+  background-color: $main-color2;
+  color: $main-color6;
+  width: 50%;
 }
 
 .inputGroup{
@@ -51,4 +56,18 @@
   display: block;
   background-color: $main-color4;
   position: absolute;
+}
+
+.chartArea{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chartIcon {
+  padding: 20px;
+  width: 150px;
+  height: 150px;
+  color: $main-color5;
 }

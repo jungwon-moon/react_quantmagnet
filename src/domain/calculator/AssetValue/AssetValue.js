@@ -1,11 +1,11 @@
 import { React, useState } from "react"
+import { comma, uncomma } from "../../../utils/utils"
 import { useNavigate } from "react-router-dom"
 import { faChevronLeft, faSackDollar, faPiggyBank, faHourglassHalf } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import ButtonListJson from "../../../store/json/assetValueButtonList.json"
 
-
-import InputArea from "./InputArea"
+import CalculatorArea from "./CalculatorArea"
 import style from "./AssetValue.module.scss"
 
 
@@ -29,12 +29,21 @@ const AssetValue = () => {
   const [selected, setSeleced] = useState(0)
 
   const [values, setValues] = useState({
-    goal: '100000000', // 목표 저축액(goal)
-    current: '0', // 현재 저축액(current)
-    investment: '600000',  // 월 투자액(investment)
-    yieldRate: '6',  // 연 수익률(yieldRate)
-    frequency: '1', // 계산 주기(frequency)
-    numOfYear: '10' // 투자 기간(numOfYear)
+    goal: "100,000,000", // 목표 저축액(goal)
+    current: "0", // 현재 저축액(current)
+    investment: "600,000",  // 월 투자액(investment)
+    yieldRate: "12",  // 연 수익률(yieldRate)
+    frequency: "1", // 계산 주기(frequency)
+    numOfYear: "5" // 투자 기간(numOfYear)
+  })
+
+  const [outValues, setOutValues] = useState({
+    result: "0",
+    yield: "0",
+    investment: "",
+    sumInvestment: [],
+    sumYield: [],
+    sumSavings: []
   })
 
   const navigate = useNavigate()
@@ -50,12 +59,12 @@ const AssetValue = () => {
 
   const onChangeInputValue = (e) => {
     const { name, value } = e.target
-    setValues({ ...values, [name]: value })
+    setValues({ ...values, [name]: comma(uncomma(value)) })
   }
 
   return (
     <div className={style.content}>
-      
+
       <div className={style.title}>
         <FontAwesomeIcon
           icon={faChevronLeft}
@@ -82,25 +91,21 @@ const AssetValue = () => {
         </div>
       </div>
       <div className={style.body}>
-        <div>
-          {
-            ButtonListJson.map((item, idex) => (
-              selected === idex
-                ? <InputArea key={idex}
-                  selected={selected}
-                  values={values}
-                  title={item.title}
-                  description={item.description}
-                  onChange={onChangeInputValue}
-                />
-                : null
-            ))
-          }
-        </div>
-
-        <div>
-          outputArea
-        </div>
+        {
+          ButtonListJson.map((item, idex) => (
+            selected === idex
+              ? <CalculatorArea key={idex}
+                selected={selected}
+                values={values}
+                outValues={outValues}
+                title={item.title}
+                description={item.description}
+                onChange={onChangeInputValue}
+              />
+              : null
+          ))
+        }
+        <div className={style.calculate}>계산</div>
       </div>
     </div>
   )
