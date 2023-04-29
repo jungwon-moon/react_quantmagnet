@@ -1,0 +1,54 @@
+@import "../../../styles.scss";
+
+.inputArea {
+  background-color: $main-color2;
+  color: $main-color6;
+  width: 50%;
+}
+
+.inputTitle {
+  background-color: $main-color2;
+  color: $main-color6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.questionIcon {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+}
+
+.inputGroup{
+  background-color: $main-color3;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+.inputLabel {
+  font-size: 16px;
+  color: $main-color6;
+  padding-bottom: 8px;
+}
+.input {
+  background-color: $main-color2;
+  color: $main-color6;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.tooltip {
+  display: none;
+}
+
+:hover > .tooltip {
+  display: block;
+  background-color: $main-color4;
+  position: absolute;
+}

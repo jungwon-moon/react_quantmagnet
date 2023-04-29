@@ -1,0 +1,58 @@
+@import "../../../styles.scss";
+
+.content {
+  background-color: $main-color3;
+  width: 100%;
+}
+
+.title {
+  color: $main-color6;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+}
+
+.titleButton{
+  padding-right: 10px;
+}
+
+.headerBack {
+  background-color: $sub-color1;
+  height: 100px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: $main-color1;
+  border-radius: 10px;
+  position: relative;
+  top: -50px;
+  left: calc(10%);
+  height: 100px;
+  width: 80%;
+}
+.headerButton{
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  color: $main-color6;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  width: calc(25%)
+}
+.headerIcon{
+  color: $main-color4;
+  width: 50px;
+  height: 40px;
+  padding-bottom: 10px;
+}
+
+.body{
+  background-color: $main-color1;
+  margin-bottom: 10px;
+}

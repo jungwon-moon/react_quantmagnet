@@ -1,0 +1,26 @@
+[
+  {
+    "title" : "목표 저축액",
+    "variable": "goal"
+  },
+  {
+    "title" : "현재 저축액",
+    "variable": "current"
+  },
+  {
+    "title" : "투자 금액",
+    "variable": "investment"
+  },
+  {
+    "title" : "연 수익률",
+    "variable": "yieldRate"
+  },
+  {
+    "title" : "계산 빈도",
+    "variable": "frequency"
+  },
+  {
+    "title" : "투자 기간",
+    "variable": "numOfYear"
+  }
+]

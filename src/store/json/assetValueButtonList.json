@@ -1,0 +1,23 @@
+[
+  {
+    "title": "목표 투자 금액",
+    "conn": "savingsGoal",
+    "icon": "faSackDollar",
+    "iconName": "sack-dollar",
+    "description": "설명"
+  },
+  {
+    "title": "예상 저축 금액",
+    "conn": "savingsEstimator",
+    "icon": "faPiggyBank",
+    "iconName": "piggy-bank",
+    "description": "설명"
+  },
+  {
+    "title": "목표 달성 시간",
+    "conn": "achieveGoal",
+    "icon": "faHourglassHalf",
+    "iconName": "hourglass",
+    "description": "설명"
+  }
+]

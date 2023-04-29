@@ -16,7 +16,7 @@ import Valuation from './domain/strategy/Valuation/Valuation'
 import TechnicalIndicator from './domain/strategy/TechnicalIndicator/TechnicalIndicator'
 
 import Calculator from './domain/calculator/Calculator'
-import AssetValue from './domain/calculator/AssetValue/index'
+import AssetValue from './domain/calculator/AssetValue/AssetValue'
 
 import StockDetails from './components/StockDetails'
 
