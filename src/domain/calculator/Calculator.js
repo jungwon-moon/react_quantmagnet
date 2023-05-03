@@ -1,11 +1,12 @@
+import style from "./Calculator.module.scss"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Card from "../../components/DomainCard"
+
 import calculatorListJson from "../../store/json/calculatorList.json"
 
-import style from "./Calculator.module.scss"
 
 
 const Calculator = () => {

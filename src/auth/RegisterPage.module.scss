@@ -1,0 +1,120 @@
+@import "./../styles.scss";
+
+
+.content {
+  background-color: $main-color3;
+  width: 100%;
+  font-size: 20px;
+  color: $main-color6;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+}
+
+.titleButton {
+  padding-right: 10px;
+}
+
+.registerBox {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: $main-color2;
+  margin: 20px;
+  padding: 20px;
+}
+
+.label {
+  font-weight: 400;
+}
+
+.containCheck {
+  display: flex;
+  width: 100%;
+}
+
+.input:enabled {
+  background-color: $main-color2;
+  border: 1px solid $main-color5;
+  border-radius: 5px;
+  color: $main-color6;
+  font-size: 16px;
+  padding: 12px;
+  margin-top: 20px;
+}
+
+.input:disabled {
+  border: 1px solid $main-color5;
+  border-radius: 5px;
+  color: $main-color5;
+  font-size: 16px;
+  padding: 12px;
+  margin-top: 20px;
+}
+
+.checkButton:enabled {
+  background-color: $sub-color4;
+  color: $main-color6;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 20px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.checkButton:disabled {
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 20px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.containCheck .input {
+  width: calc(100% - 130px);
+}
+
+.validMsg {
+  position: relative;
+  color: $main-color5;
+  font-size: 16px;
+  height: 20px;
+  padding-left: 10px;
+}
+
+.registerButton:enabled {
+  background-color: $sub-color4;
+  color: $main-color6;
+  border: 0;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.registerButton {
+  border: 0;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footerButton {
+  text-decoration: underline;
+  color: $main-color6;
+}
