@@ -1,12 +1,13 @@
+import style from "./AssetValue.module.scss"
 import { React, useState } from "react"
 import { comma, uncomma } from "../../../utils/utils"
 import { useNavigate } from "react-router-dom"
 import { faChevronLeft, faSackDollar, faPiggyBank, faHourglassHalf } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import CalculatorArea from "./CalculatorArea"
+import ResultArea from "./ResultArea"
 import ButtonListJson from "../../../store/json/assetValueButtonList.json"
 
-import CalculatorArea from "./CalculatorArea"
-import style from "./AssetValue.module.scss"
 
 
 const HeaderButton = ({ title, conn, icon, onClick }) => {
@@ -27,6 +28,8 @@ const HeaderButton = ({ title, conn, icon, onClick }) => {
 const AssetValue = () => {
   // state
   const [selected, setSeleced] = useState(0)
+  const [isCalculate, setIsCalculate] = useState(false)
+  const [chartData, setChartData] = useState()
 
   const [values, setValues] = useState({
     goal: "100,000,000", // 목표 저축액(goal)
@@ -41,9 +44,9 @@ const AssetValue = () => {
     result: "0",
     yield: "0",
     investment: "",
-    sumInvestment: [],
+    sumInvest: [],
     sumYield: [],
-    sumSavings: []
+    sumSaving: []
   })
 
   const navigate = useNavigate()
@@ -53,14 +56,21 @@ const AssetValue = () => {
   const onClickGoBack = () => {
     navigate(-1)
   }
+
   const onClickHeaderButton = (conn) => {
     setSeleced(buttonList[conn])
+    setIsCalculate(false)
   }
 
   const onChangeInputValue = (e) => {
     const { name, value } = e.target
-    setValues({ ...values, [name]: comma(uncomma(value)) })
+    if (name === "numOfYear") {
+      setValues({ ...values, [name]: value })
+    } else {
+      setValues({ ...values, [name]: comma(uncomma(value)) })
+    }
   }
+
 
   return (
     <div className={style.content}>
@@ -101,15 +111,30 @@ const AssetValue = () => {
                 title={item.title}
                 description={item.description}
                 onChange={onChangeInputValue}
+                isCalculate={isCalculate}
               />
               : null
           ))
         }
-        <div className={style.calculate}>계산</div>
+        <div>
+          <div>
+
+            <ResultArea
+              selected={selected}
+              values={values}
+              outValues={outValues}
+              setOutValues={setOutValues}
+              chartData={chartData}
+              setChartData={setChartData}
+              isCalculate={isCalculate}
+              setIsCalculate={setIsCalculate}
+            />
+
+          </div>
+        </div>
       </div>
     </div>
   )
-
 }
 
 
@@ -123,5 +148,6 @@ const buttonList = {
 const buttonIcons = [
   faSackDollar, faPiggyBank, faHourglassHalf
 ]
+
 
 export default AssetValue

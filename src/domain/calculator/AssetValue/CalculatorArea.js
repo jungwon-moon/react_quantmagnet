@@ -1,11 +1,10 @@
+import style from "./CalculatorArea.module.scss"
 import { React } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons"
-import { faChartColumn } from "@fortawesome/free-solid-svg-icons"
+import { faCalculator } from "@fortawesome/free-solid-svg-icons"
+
 import inputListJson from "../../../store/json/assetValueInputList.json"
-
-import style from "./CalculatorArea.module.scss"
-
 
 
 const InputGroup = ({ title, variable, values, onChange }) => {
@@ -34,8 +33,25 @@ const InputGroup = ({ title, variable, values, onChange }) => {
   )
 }
 
-const CalculatorArea = ({ selected, values, outValues,
-  title, description, onChange }) => {
+const Summary = ({ outValues }) => {
+
+  return (
+    <div className={style.results}>
+      <div className={style.result}>{outValues.result}</div>
+      <div className={style.result}>{outValues.yield}</div>
+      <div className={style.result}>{outValues.accumulate}</div>
+    </div>
+  )
+}
+
+const CalculatorArea = ({
+  selected,
+  values,
+  outValues,
+  isCalculate,
+  title,
+  description,
+  onChange }) => {
   const usedInput = inputListJson.filter(item =>
     !item.variable.includes(notUsedInput[selected]))
   return (
@@ -62,10 +78,14 @@ const CalculatorArea = ({ selected, values, outValues,
         </div>
 
         <div className={style.chartArea}>
-          <FontAwesomeIcon
-            icon={faChartColumn}
-            className={style.chartIcon}
-          />
+          {
+            isCalculate
+              ? <Summary
+                outValues={outValues} />
+              : <FontAwesomeIcon
+                icon={faCalculator}
+                className={style.chartIcon} />
+          }
         </div>
       </div>
     </>
