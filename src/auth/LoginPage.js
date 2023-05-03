@@ -11,7 +11,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const onClickGoBack = () => {
-    navigate("/")
+    navigate(-1)
   }
   const dispatch = useDispatch()
   // const auth = useSelector(state => state.auth)
@@ -52,7 +52,7 @@ const LoginPage = () => {
       }
       dispatch(loginUser(body))
     } else {
-      alert('아이디 및 비밀번호를 확인해주세요')
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.')
     }
   }
 
@@ -62,7 +62,7 @@ const LoginPage = () => {
         <FontAwesomeIcon
           icon={faChevronLeft}
           className={style.titleButton}
-          onClick={onClickGoBack}/>
+          onClick={onClickGoBack} />
         로그인
       </div>
 
@@ -70,21 +70,23 @@ const LoginPage = () => {
         <label className={style.label}>아이디</label>
         <input className={style.input}
           type="text" value={username}
-          placeholder="영문 소문자, 숫자"
+          placeholder="영문, 숫자(4-16자)"
           onChange={onChangeUsername}
           onKeyPress={onKeyPressLogin} />
         <label className={style.label}>비밀번호</label>
         <input className={style.input}
           type="password" value={password}
-          placeholder="특수문자+영문+숫자"
+          placeholder="특수문자+영문+숫자(8자 이상)"
           onChange={onChangePassword}
           onKeyPress={onKeyPressLogin} />
         <button
           className={style.loginButton}
           onClick={onClickLogin}>로그인</button>
         <div className={style.footer} >
-          {/* <>ID/PW 찾기</> */}
-          <Link className={style.footerButton} to="/register">
+          {/* <Link className={style.footerButton}>ID/PW 찾기</Link> */}
+          <Link
+            className={style.footerButton}
+            to="/register">
             회원가입
           </Link>
         </div>
