@@ -1,0 +1,58 @@
+@import "../styles.scss";
+
+.content {
+  background-color: $main-color3;
+  width: 100%;
+  font-size: 20px;
+  color: $main-color6;
+}
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+}
+.titleButton {
+  padding-right: 10px;
+}
+.loginBox{
+  display: flex;
+  flex-direction: column;  
+  border-radius: 10px;
+  background-color: $main-color2;
+  margin: 20px;
+  padding: 40px;
+}
+
+.loginButton {
+  background-color: $sub-color4;
+  color: $main-color6;
+  border: 0;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.label{
+  font-weight: 400;
+}
+
+.input{
+  background-color: $main-color2;
+  border: 1px solid $main-color5;
+  border-radius: 5px;
+  color: $main-color6;
+  font-size: 16px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+}
+.footerButton{
+  text-decoration: underline;
+  color: $main-color6;
+}
