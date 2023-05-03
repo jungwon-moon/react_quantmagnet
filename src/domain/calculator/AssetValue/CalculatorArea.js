@@ -86,7 +86,7 @@ const CalculatorArea = ({
           }
         </div>
 
-        <div className={style.chartArea}>
+        <div className={style.summaryArea}>
           {
             isCalculate
               ? <Summary

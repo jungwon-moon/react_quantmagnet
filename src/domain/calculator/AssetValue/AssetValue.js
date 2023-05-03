@@ -41,9 +41,9 @@ const AssetValue = () => {
   })
 
   const [outValues, setOutValues] = useState({
-    result: "0",
-    yield: "0",
-    investment: "",
+    result: 0,
+    yield: 0,
+    investment: 0,
     sumInvest: [],
     sumYield: [],
     sumSaving: []
