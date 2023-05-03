@@ -1,15 +1,18 @@
-import { React, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import style from "./RegisterPage.module.scss"
+import { React, useState } from "react"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link, useNavigate } from "react-router-dom"
 import {
   // loginUser,
   registerUser,
   usrenameUniqueCheck,
   emailUniqueCheck
 } from "./Auth_Action"
-import "./RegisterPage.css"
+
 
 const RegisterPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate(-1)
 
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
   const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
@@ -37,6 +40,12 @@ const RegisterPage = () => {
   // Check
   const [checkUsername, setCheckUsername] = useState(false)
   const [checkEmail, setCheckEmail] = useState(false)
+
+
+  // Event
+  const onClickGoBack = () => {
+    navigate(-1)
+  }
 
   const onChangeUsername = (e) => {
     setUsername(e.currentTarget.value)
@@ -120,59 +129,90 @@ const RegisterPage = () => {
   }
 
   return (
-    <>
-      <div className="registerBox">
-        <div><h2>회원가입</h2></div>
-        <br />
-        <label>아이디</label>
-        <div className="checkBoxContain">
-          <input type="text" value={username}
+    <div className={style.content}>
+      <div className={style.title}>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className={style.titleButton}
+          onClick={onClickGoBack} />
+        회원가입
+      </div>
+
+      <div className={style.registerBox}>
+
+        <label className={style.label}>아이디</label>
+        <div className={style.containCheck}>
+          <input
+            className={style.input}
+            type="text" value={username}
             disabled={checkUsername}
             placeholder="아이디"
             onChange={onChangeUsername} />
-          <button onClick={onClickCheckUsername}>중복확인</button>
+          <button
+            className={style.checkButton}
+            disabled={checkUsername}
+            onClick={onClickCheckUsername}>
+            중복확인
+          </button>
         </div>
-        <div className="validMsg">{usernameMsg}</div>
+        <div className={style.validMsg}>{usernameMsg}</div>
 
-        <label>이메일</label>
-        <div className="checkBoxContain">
-          <input type="text" value={email}
+        <label className={style.label}>이메일</label>
+        <div className={style.containCheck}>
+          <input
+            className={style.input}
+            type="text" value={email}
             disabled={checkEmail}
             placeholder="이메일"
             onChange={onChangeEmail} />
-          <button onClick={onClickCheckEmail}>중복확인</button>
+          <button
+            className={style.checkButton}
+            disabled={checkEmail}
+            onClick={onClickCheckEmail}>
+            중복확인
+          </button>
         </div>
-        <div className="validMsg">{emailMsg}</div>
+        <div className={style.validMsg}>{emailMsg}</div>
 
-        <label>이름</label>
-        <input type="text" value={name}
+        <label className={style.label}>이름</label>
+        <input
+          className={style.input}
+          type="text" value={name}
           placeholder="이름"
           onChange={onChangeName} />
-        <div className="validMsg">{nameMsg}</div>
+        <div className={style.validMsg}>{nameMsg}</div>
 
-        <label>비밀번호</label>
-        <input type="password" value={password}
+        <label className={style.label}>비밀번호</label>
+        <input
+          className={style.input}
+          type="password" value={password}
           placeholder="비밀번호"
           onChange={onChangePassword} />
-        <div className="validMsg">{passwordMsg}</div>
+        <div className={style.validMsg}>{passwordMsg}</div>
 
-        <label>비밀번호 확인</label>
-        <input type="password" value={confirm}
+        <label className={style.label}>비밀번호 확인</label>
+        <input
+          className={style.input}
+          type="password" value={confirm}
           placeholder="비밀번호 확인"
           onChange={onChangeConfirm} />
-        <div className="validMsg">{confirmMsg}</div>
-        <br />
+        <div className={style.validMsg}>{confirmMsg}</div>
 
-        {isUsername && isName && isEmail && isPassword && isConfirm && checkUsername && checkEmail
-          ? <button disabled={false} onClick={onClickRegister} >회원가입</button>
-          : <button disabled={true} >회원가입</button>}
-
-        <br />
-        {<Link to="/login">
-          로그인 페이지로 이동
-        </Link>}
+        <button
+          className={style.registerButton}
+          disabled={!(isUsername && isName && isEmail && isPassword && isConfirm && checkUsername && checkEmail)}
+          onClick={onClickRegister}>
+          회원가입</button>
+        <div className={style.footer}>
+          {/* <Link className={style.footerButton}>ID/PW 찾기</Link> */}
+          <Link
+            className={style.footerButton}
+            to="/login">
+            로그인
+          </Link>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 
