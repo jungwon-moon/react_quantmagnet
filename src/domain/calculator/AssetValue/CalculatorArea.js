@@ -33,12 +33,21 @@ const InputGroup = ({ title, variable, values, onChange }) => {
   )
 }
 
-const Summary = ({ outValues }) => {
+const Summary = ({ selected, outValues }) => {
 
   return (
     <div className={style.results}>
+      {
+        selected === 0
+          ? <div className={style.result}>월 투자 금액</div>
+          : selected === 1
+            ? <div className={style.result}>총 저축액</div>
+            : <div className={style.result}>예상 투자 기간</div>
+      }
       <div className={style.result}>{outValues.result}</div>
+      <div className={style.result}>누적 수익</div>
       <div className={style.result}>{outValues.yield}</div>
+      <div className={style.result}>누적 투자액</div>
       <div className={style.result}>{outValues.accumulate}</div>
     </div>
   )
@@ -81,6 +90,7 @@ const CalculatorArea = ({
           {
             isCalculate
               ? <Summary
+                selected={selected}
                 outValues={outValues} />
               : <FontAwesomeIcon
                 icon={faCalculator}

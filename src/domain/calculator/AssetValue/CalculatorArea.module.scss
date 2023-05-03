@@ -73,8 +73,17 @@
 }
 
 .results {
-  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
+
 .result{
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  color: $main-color6;
+  font-size: 20px;  
+  padding: 10px 20px;
 }

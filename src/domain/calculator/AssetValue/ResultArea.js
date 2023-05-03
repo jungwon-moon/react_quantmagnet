@@ -32,6 +32,7 @@ const ResultArea = ({
     const current = Number(uncomma(values.current))
     const numOfMon = Number(values.numOfYear * 12)
     const numOfMul = Number(values.numOfYear * 12 / frequency)
+    
     // output state
     let outputResult = 0
     let outputYield = 0
@@ -213,7 +214,12 @@ const ResultArea = ({
       </div>
       {
         isCalculate
-          ? <Bar options={options} data={chartData} />
+          ? <div className={style.resultArea}>
+            <Bar className={style.chart }
+              options={options}
+              data={chartData} />
+            {/* <div className={style.table}>table</div> */}
+          </div>
           : null
       }
     </>
