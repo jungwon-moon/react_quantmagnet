@@ -1,0 +1,34 @@
+[
+  {
+    "title": "전일 종가",
+    "variable": "prevd"
+  },
+  {
+    "title": "시작가",
+    "variable": "open"
+  },
+  {
+    "title": "PBR",
+    "variable": "pbr"
+  },
+  {
+    "title": "PER",
+    "variable": "per"
+  },
+  {
+    "title": "BPS",
+    "variable": "bps"
+  },
+  {
+    "title": "DPS",
+    "variable": "dps"
+  },
+  {
+    "title": "ROE",
+    "variable": "roe"
+  },
+  {
+    "title": "DVD_YLD",
+    "variable": "dvd_yld"
+  }
+]
