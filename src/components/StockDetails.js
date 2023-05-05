@@ -1,37 +1,47 @@
-import { useState, useEffect } from "react"
+import style from "./StockDetails.module.scss"
+import { React, useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { comma } from '../utils/utils'
 import Chart from "react-apexcharts"
 import axios from "axios"
-import "./StockDetails.css"
+import outputListJson from "../store/json/stockDetailsOutputList.json"
 
 
-function resultValue(value) {
-  if (value === null) {
+function resultNotNull(value) {
+  if (value === ("null" || null)) {
     return '-'
   } else {
     return value
   }
 }
 
+const TableRow = ({ title, variable, price, details }) => {
+  const tableList = {
+    "prevd": String(comma(price.close - price.prevd)),
+    "open": resultNotNull(comma(price.open)),
+    "pbr": resultNotNull(comma(details.pbr)),
+    "per": resultNotNull(comma(details.per)),
+    "bps": resultNotNull(comma(details.bps)),
+    "dps": resultNotNull(comma(details.dps)),
+    "roe": resultNotNull(comma(details.roe)),
+    "dvd_yld": resultNotNull(comma(details.dvd_yld)),
+  }
+  return (
+    <div className={style.tableRow}>
+      <div>{title}</div>
+      <div>{tableList[variable]}
+      </div>
+    </div>
+  )
+}
+
 const StockDetailHeader = ({ details, price }) => {
   return (
-    <div className="stockDetailHeader">
-      <div className="symbolArea">
-        <div className="symbolBox">{price.market}</div>
-        <div className="symbolBox">{details.stcd}</div>
-        <div style={{ fontSize: "2rem", paddingTop: "4px" }}>{details.stnm}</div>
-      </div>
-
-      <div className="priceArea">
-        <div className="priceBox">{comma(price.close)}</div>
-        <div className="prevdBox">
-          <div style={{ fontWeight: "300" }}>기준일: {price.date}</div>
-          {price.prevd > 0
-            ? <div style={{ color: "red", fontSize: "20px" }}>+{comma(price.prevd)}(+{price.rate} %)</div>
-            : <div style={{ color: "blue", fontSize: "20px" }}>{comma(price.prevd)}({price.rate} %)</div>
-          }
-        </div>
+    <div className={style.header}>
+      <div className={style.symbolArea}>
+        <div className={style.symbolBox}>{price.market}</div>
+        <div className={style.symbolBox}>{details.stcd}</div>
+        <div className={style.stockName}>{details.stnm}</div>
       </div>
     </div>
   )
@@ -39,8 +49,6 @@ const StockDetailHeader = ({ details, price }) => {
 
 
 const StockDetailBody = ({ details, price, prices }) => {
-  const width = window.innerWidth - 20
-
   const data = prices.map((d) => [{
     x: d.date.slice(0, 4) + '-' + d.date.slice(4, 6) + '-' + d.date.slice(6, 8),
     y: [d.open, d.high, d.low, d.close]
@@ -48,10 +56,6 @@ const StockDetailBody = ({ details, price, prices }) => {
 
   const priceChart = {
     options: {
-      title: {
-        text: 'CandleStick Chart',
-        align: 'left'
-      },
       xaxis: {
         type: 'datetime'
       },
@@ -60,15 +64,6 @@ const StockDetailBody = ({ details, price, prices }) => {
           enabled: true
         }
       },
-      responsive: [{
-        breakpoint: 867,
-        options: {
-          chart: {
-            width: width
-          }
-        }
-      }]
-
     },
     series: [{
       data: data
@@ -76,50 +71,36 @@ const StockDetailBody = ({ details, price, prices }) => {
   }
 
   return (
-    <div className="stockDetailBody">
-      <div className="contentChart">
-        <Chart
-          type="candlestick"
-          height={350}
-          width={width / 3}
-          options={priceChart.options}
-          series={priceChart.series}
-        />
+    <div className={style.body}>
+      <div className={style.priceArea}>
+        <div className={style.priceBox}>{comma(price.close)}</div>
+        <div className={style.prevBox}>
+          <div>기준일: {price.date}</div>
+          {price.prevd > 0
+            ? <div className={style.pricePlus}>+{comma(price.prevd)}(+{price.rate} %)</div>
+            : <div className={style.priceMinus}>{comma(price.prevd)}({price.rate} %)</div>
+          }
+        </div>
       </div>
+      <Chart
+        type="candlestick"
+        height="auto"
+        options={priceChart.options}
+        series={priceChart.series}
+      />
 
-      <div className="contentTable">
-        <div className="contentTableRow">
-          <div>전일 종가</div>
-          <div>{String(comma(price.close - price.prevd))}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>시작가</div>
-          <div>{comma(price.open)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>PBR</div>
-          <div>{resultValue(details.pbr)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>PER</div>
-          <div>{resultValue(details.per)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>BPS</div>
-          <div>{resultValue(details.bps)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>DPS</div>
-          <div>{resultValue(details.dps)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>ROE</div>
-          <div>{resultValue(details.roe)}</div>
-        </div>
-        <div className="contentTableRow">
-          <div>DVD_YLD</div>
-          <div>{resultValue(details.dvd_yld)}</div>
-        </div>
+      <div className={style.contentTable}>
+        {
+          outputListJson.map((item, index) => (
+            <TableRow
+              key={index}
+              title={item.title}
+              variable={item.variable}
+              price={price}
+              details={details}
+            />
+          ))
+        }
       </div>
     </div>
   )
@@ -131,7 +112,7 @@ const StockDetails = () => {
   const stcd = useParams().stcd
   const [price, setPrice] = useState([{}])
   const [prices, setPrices] = useState([{
-    date: '000000'
+    date: '000000', stcd: "000000"
   }])
   const [details, setDetails] = useState([{}])
 
@@ -143,7 +124,6 @@ const StockDetails = () => {
       url: '/api/kr/val-det/',
       params: {
         stcd__contains: stcd,
-        // limit: 1
       }
     }).then(
       res => {
@@ -164,22 +144,20 @@ const StockDetails = () => {
     }).then(
       res => {
         const data = res.data.results.reverse()
-        console.log(res.data.results)
         setPrice(data[data.length - 1])
         setPrices(data.slice())
       }
     )
   }, [stcd])
 
-
   return (
-    <>
-      <div className="main-page-vertical">
-        <StockDetailHeader details={details} price={price} />
-        <StockDetailBody details={details} price={price} prices={prices} />
-      </div>
-    </>
+    <div className={style.content}>
+      <StockDetailHeader details={details} price={price} />
+      <StockDetailBody details={details} price={price} prices={prices} />
+    </div>
   )
 }
+
+
 
 export default StockDetails
