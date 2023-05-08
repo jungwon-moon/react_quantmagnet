@@ -1,22 +1,41 @@
-import React, { useState } from "react";
-import { Link, Outlet } from 'react-router-dom';
+import style from "./Strategy.module.scss"
+import React from "react"
+import { useNavigate } from 'react-router-dom'
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Card from "../../components/DomainCard"
+
+import strategyListJson from "../../store/json/strategyList.json"
 
 
 const Strategy = () => {
+  const navigate = useNavigate()
+
+  const onClickGoBack = () => {
+    navigate("/")
+  }
 
   return (
     <>
-      <div>
-        <Link to="./screener">
-          <div className="card" style={{ width: "28rem" }}>
-            <div className="card-header">
-              종목 스크리너
-            </div>
-            <ul className="list-group">
-              <li className="list-group-item">특정일의 밸류에이션을 조회할 수 있습니다.</li>
-            </ul>
-          </div>
-        </Link>
+      <div className={style.content}>
+        <div className={style.title}>
+          <FontAwesomeIcon
+            icon={faChevronLeft}
+            className={style.titleButton}
+            onClick={onClickGoBack}
+          />
+          투자 전략
+        </div>
+        {
+          strategyListJson.map((item, index) => (
+            <Card key={index}
+              title={item.title}
+              link={item.link}
+              description={item.description}
+            />
+          ))
+        }
+
         {/* <Link to="./technicalindicator">
           <div className="card" style={{ width: "28rem" }}>
           <div className="card-header">
@@ -38,7 +57,6 @@ const Strategy = () => {
           </div>
         </Link> */}
       </div>
-      <Outlet />
     </>
   )
 }
