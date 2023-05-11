@@ -1,81 +1,104 @@
-import { useState, useEffect } from "react";
-import axios from 'axios';
-import './style.css'
-import SortTable from '../../../components/SortTable'
-import MultilRangeSlider from "../../../components/MultiRangeSlider";
-import { BarLoader } from "react-spinners";
+import style from "./Screener.module.scss"
+import { React, useState, useEffect } from "react"
+import { Desktop, Tablet, Mobile } from "../../../store/mediaQuery"
+import { faChevronLeft, faFilter, faFolder, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import axios from "axios"
+import SortTable from "../../../components/SortTable"
+import MultilRangeSlider from "../../../components/MultiRangeSlider"
+import { BarLoader } from "react-spinners"
 import { loader_override } from "../../../store/export_const"
 
+import filterListJson from "../../../store/json/screenerFilterList.json"
+import { useNavigate } from "react-router-dom"
 
-const filter = [
-  {
-    id: 1,
-    title: "주가순자산비율(PBR)",
-    name: "pbr",
-    min: "0",
-    max: "50",
-    left: "0",
-    right: "50",
-  },
-  {
-    id: 2,
-    title: "주가수익률(PER)",
-    name: "per",
-    min: "0",
-    max: "500",
-    left: "0",
-    right: "500",
-  },
-  {
-    id: 3,
-    title: "주당순이익(EPS)",
-    name: "eps",
-    min: "0",
-    max: "100",
-    left: "0",
-    right: "100",
-  },
-  {
-    id: 4,
-    title: "주당순자산가치(BPS)",
-    name: "bps",
-    min: "500",
-    max: "200000",
-    left: "500",
-    right: "200000",
-  },
-  {
-    id: 5,
-    title: "자기자본이익률(ROE)",
-    name: "roe",
-    min: "0",
-    max: "300",
-    left: "0",
-    right: "300",
-  },
-]
-const Filters = ({ change, onClickLookup }) => {
-  return (
-    <div className="filter-box">
+
+
+const FilterBox = ({ change, filterList, setFilterList }) => {
+
+  const onClickFolder = (e) => {
+    const category = e.target.attributes.category.value
+    const opened = !filterList[category].opened
+    setFilterList(
       {
-        filter.map((filter) =>
-          <div key={filter.id} className="filter">
-            <div className="filterItem">{filter.title}</div>
-            <MultilRangeSlider key={filter.id}
-              name={filter.name} change={change}
-              min={filter.min} max={filter.max}
-              left={filter.left} right={filter.right} />
-          </div>
-        )}
-      <button className="button"
-        onClick={onClickLookup}>조회</button>
+        ...filterList,
+        [category]: {
+          ...filterList[category],
+          ["opened"]: opened
+        }
+      })
+  }
+  return (
+    <div className={style.filterBox}>
+      <div className={style.filterTitle}>
+        <FontAwesomeIcon icon={faFilter} className={style.filterIcon} />
+        종목 필터</div>
+      <hr className={style.hr} />
+      <div className={style.filterBody}>
+
+        <div className={style.filterList}>
+          {
+            // categoty
+            Object.values(filterList).map((item, index) => (
+              <div className={style.category} key={index}>
+                <div className={style.categoryHeader}>
+                  {
+                    item.opened === true
+                      ?
+                      <FontAwesomeIcon
+                        icon={faFolderOpen}
+                        className={style.folderIcon}
+                      />
+                      : <FontAwesomeIcon
+                        icon={faFolder}
+                        className={style.folderIcon}
+                      />
+                  }
+                  <div
+                    className={style.categoryTitle}
+                    onClick={onClickFolder}
+                    category={item.category}
+                  >{item.categoryTitle}</div>
+                </div>
+                {
+                  // 하위 리스트
+                  item.opened === true
+                    ? Object.values(item.list).map((item, index) => (
+                      <div key={index}
+                        className={style.categoryBody}>
+                        {item.title}
+                      </div>
+                    ))
+                    : null
+                }
+              </div>))
+          }
+        </div>
+        <hr className={style.hr} />
+
+        <div className={style.selectedFilterList}>
+          {/* {
+            filterList.map((item, index) =>
+              <div key={index} className={style.filter}>
+                <div className={style}>{item.title}</div>
+                <MultilRangeSlider key={index}
+                  name={item.name} change={change}
+                  min={item.min} max={item.max}
+                  left={item.left} right={item.right} />
+              </div>
+            )
+          } */}
+        </div>
+
+      </div>
     </div>
   )
 }
 // Screener Components
 function Screener() {
-
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+  const [filterList, setFilterList] = useState(filterListJson)
   const [lookup, setLookup] = useState(true)
   const [data, setData] = useState([])
   const [params, setParams] = useState({
@@ -105,8 +128,8 @@ function Screener() {
   useEffect(() => {
     setLoading(true)
     axios({
-      method: 'get',
-      url: '/api/kr/valuation',
+      method: "get",
+      url: "/api/kr/valuation",
       params: params
     }).then(
       res => {
@@ -116,6 +139,11 @@ function Screener() {
     )
   }, [lookup])   // eslint-disable-line react-hooks/exhaustive-deps
 
+
+  // Event
+  const onClickGoBack = () => {
+    navigate(-1)
+  }
 
   const handleSliderChange = (e) => {
     const { name, value } = e.target
@@ -130,12 +158,31 @@ function Screener() {
   }
 
   return (
-    <div style={{ width: "100%" }}>
-      <h1>종목 스크리너</h1>
-      <div className="container">
-        <Filters params={params} change={handleSliderChange} onClickLookup={onClickLookup} />
+    <div className={style.content}>
+
+      <div className={style.title}>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className={style.titleButton}
+          onClick={onClickGoBack} />
+        종목 스크리너
+      </div>
+
+
+      <div className={style.container}>
+        <FilterBox
+          params={params}
+          change={handleSliderChange}
+          filterList={filterList}
+          setFilterList={setFilterList}
+        />
+        <div className={style.lookupButton}
+          onClick={onClickLookup}>조회</div>
+
+        {/* table */}
         {
-          loading ? <BarLoader cssOverride={loader_override} size={150} />
+          loading
+            ? <BarLoader cssOverride={loader_override} size={150} />
             : <SortTable className="screenerTable" columns={columns} data={data} />
         }
       </div>
