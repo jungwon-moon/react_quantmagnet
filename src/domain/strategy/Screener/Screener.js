@@ -1,7 +1,12 @@
 import style from "./Screener.module.scss"
 import { React, useState, useEffect } from "react"
 import { Desktop, Tablet, Mobile } from "../../../store/mediaQuery"
-import { faChevronLeft, faFilter, faFolder, faFolderOpen } from "@fortawesome/free-solid-svg-icons"
+import {
+  faChevronLeft, faFilter, faFolder, faFolderOpen
+} from "@fortawesome/free-solid-svg-icons"
+import {
+  faSquare, faSquareCheck
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
 import SortTable from "../../../components/SortTable"
@@ -14,19 +19,39 @@ import { useNavigate } from "react-router-dom"
 
 
 
-const FilterBox = ({ change, filterList, setFilterList }) => {
+const FilterBox = ({ filterList, setFilterList }) => {
 
   const onClickFolder = (e) => {
     const category = e.target.attributes.category.value
-    const opened = !filterList[category].opened
+    const opened = filterList[category].opened
     setFilterList(
       {
         ...filterList,
         [category]: {
           ...filterList[category],
-          ["opened"]: opened
+          "opened": !opened
         }
       })
+  }
+  const onClickSelected = (e) => {
+    const category = e.target.attributes.category.value
+    const name = e.target.attributes.name.value
+    const selected = filterList[category].list[name].selected
+    setFilterList(
+      {
+        ...filterList,
+        [category]: {
+          ...filterList[category],
+          "list": {
+            ...filterList[category].list,
+            [name]: {
+              ...filterList[category].list[name],
+              "selected": !selected
+            }
+          }
+        }
+      }
+    )
   }
   return (
     <div className={style.filterBox}>
@@ -39,35 +64,38 @@ const FilterBox = ({ change, filterList, setFilterList }) => {
         <div className={style.filterList}>
           {
             // categoty
-            Object.values(filterList).map((item, index) => (
+            Object.values(filterList).map((categoryItem, index) => (
               <div className={style.category} key={index}>
                 <div className={style.categoryHeader}>
                   {
-                    item.opened === true
+                    categoryItem.opened === true
                       ?
-                      <FontAwesomeIcon
-                        icon={faFolderOpen}
-                        className={style.folderIcon}
-                      />
-                      : <FontAwesomeIcon
-                        icon={faFolder}
-                        className={style.folderIcon}
-                      />
+                      <FontAwesomeIcon icon={faFolderOpen} className={style.folderIcon} />
+                      : <FontAwesomeIcon icon={faFolder} className={style.folderIcon} />
                   }
                   <div
                     className={style.categoryTitle}
                     onClick={onClickFolder}
-                    category={item.category}
-                  >{item.categoryTitle}</div>
+                    category={categoryItem.category}
+                  >{categoryItem.categoryTitle}</div>
                 </div>
                 {
                   // 하위 리스트
-                  item.opened === true
-                    ? Object.values(item.list).map((item, index) => (
-                      <div key={index}
-                        className={style.categoryBody}>
-                        {item.title}
-                      </div>
+                  categoryItem.opened === true
+                    ? Object.values(categoryItem.list).map((item, index) => (
+                      item.selected === true
+                        ? <div key={index}
+                          className={style.selectedCategoryBody}
+                          onClick={onClickSelected}
+                          category={categoryItem.category}
+                          name={item.name}
+                        > {item.title} </div>
+                        : <div key={index}
+                          className={style.categoryBody}
+                          onClick={onClickSelected}
+                          category={categoryItem.category}
+                          name={item.name}
+                        > {item.title} </div>
                     ))
                     : null
                 }
@@ -77,6 +105,17 @@ const FilterBox = ({ change, filterList, setFilterList }) => {
         <hr className={style.hr} />
 
         <div className={style.selectedFilterList}>
+          {
+            Object.values(filterList).map((categoryItem) => (
+              Object.values(categoryItem.list).map((item, index) => (
+                // 선택된 필터
+                item.selected === true
+                  ? <div key={index}>{item.title}</div>
+                  : null
+
+              ))
+            ))
+          }
           {/* {
             filterList.map((item, index) =>
               <div key={index} className={style.filter}>

@@ -76,9 +76,21 @@
 }
 
 .categoryBody {
-  padding-top: 5px;
-  padding-left: 25px;
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px 20px;
   font-size: 18px;
+}
+.selectedCategoryBody{
+  background-color: $main-color2;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 20px;
+  font-size: 18px;
+}
+.checkBoxIcon{
+  margin-right: 5px;
 }
 
 .selectedFilterList {
