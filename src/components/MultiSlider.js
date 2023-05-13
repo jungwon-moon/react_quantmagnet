@@ -19,15 +19,7 @@ const MultiSlider = ({ name, min, max, left, right, onChange }) => {
       range.current.style.left = `${leftPercent}%`
       range.current.style.width = `${rightPercent - leftPercent}%`
     }
-  }, [left])
-
-  useEffect(() => {
-    if (range.current) {
-      const leftPercent = getPercent(left)
-      const rightPercent = getPercent(right)
-      range.current.style.width = `${rightPercent - leftPercent}%`
-    }
-  })
+  }, [left, right, getPercent])
 
   return (
     <div className={style.multiSlider}>
