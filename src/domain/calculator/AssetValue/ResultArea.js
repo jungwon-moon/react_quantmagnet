@@ -1,5 +1,5 @@
 import style from "./ResultArea.module.scss"
-import { React, useState } from "react"
+import { React } from "react"
 import { comma, uncomma } from "../../../utils/utils"
 import { Bar } from "react-chartjs-2"
 import "chart.js/auto"

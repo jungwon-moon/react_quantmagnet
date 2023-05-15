@@ -4,6 +4,7 @@ import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHouse, faCalculator, faMagnifyingGlassChart } from "@fortawesome/free-solid-svg-icons"
 import menuListJson from "../store/json/menuList.json"
+import footerJson from "../store/json/footer.json"
 
 const menuIcons = [
   faHouse,
@@ -27,14 +28,19 @@ const MenuItem = ({ title, link, icon }) => {
 const Footer = () => {
   return (
     <>
-      <div>footer</div>
+      {
+        footerJson.map((item, index) => (
+          <div key={index}>
+            {item}
+          </div>
+        ))}
     </>
   )
 }
 
 // MainComponenets
 const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
-  
+
   const onClickIsMenu = () => {
     setIsMenu(false)
   }
@@ -44,11 +50,11 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
       <div className={style.menu}>
         {
           menuListJson.map((item, index) => (
-          <MenuItem key={index}
-            title={item.title}
-            link={item.link}
-            icon={item.iconName}
-          />
+            <MenuItem key={index}
+              title={item.title}
+              link={item.link}
+              icon={item.iconName}
+            />
           ))
         }
       </div>
@@ -60,7 +66,7 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
   )
 
   const mobile = (
-      <div className={style.menuM} onClick={onClickIsMenu}>
+    <div className={style.menuM} onClick={onClickIsMenu}>
       {
         menuListJson.map((item, index) => (
           <MenuItem key={index}
@@ -70,14 +76,14 @@ const MainMenu = ({ authenticated, onClickLogout, setIsMenu }) => {
           />
         ))
       }
-        <div className={style.authMenu}>
-          {
-            authenticated === false
-              ? <a href="/login">로그인</a>
-              : <a href="/" onClick={onClickLogout}>로그아웃</a>
-          }
-        </div>
+      <div className={style.authMenu}>
+        {
+          authenticated === false
+            ? <a href="/login">로그인</a>
+            : <a href="/" onClick={onClickLogout}>로그아웃</a>
+        }
       </div>
+    </div>
   )
 
   return (

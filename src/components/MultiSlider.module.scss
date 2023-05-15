@@ -58,7 +58,6 @@
 .sliderTrack {
   background-color: $main-color4;
   z-index: 1;
-
 }
 
 .sliderRange {
@@ -75,6 +74,9 @@
 }
 
 .sliderInput {
-  width: calc(50% - 20px);
+  font-size: 16px;
+  margin-top: 10px;
+  padding: 5px;
+  width: calc(50% - 50px);
   height: 20px;
 }

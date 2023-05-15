@@ -1,6 +1,8 @@
 @import "../../../styles.scss";
 
+
 .calculate {
+  cursor: pointer;
   background-color: $main-color2;
   color: $main-color6;
   border-radius: 10px;
@@ -12,7 +14,7 @@
   letter-spacing: 10px;
 }
 
-.resultArea{
+.resultArea {
   margin-top: 10px;
 }
 
@@ -22,6 +24,6 @@
   padding: 20px 10px;
 }
 
-.table{
+.table {
   background-color: red;
 }
