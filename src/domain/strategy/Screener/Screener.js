@@ -1,5 +1,5 @@
 import style from "./Screener.module.scss"
-import { React, useState, useEffect } from "react"
+import { React, useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Desktop, Tablet, Mobile } from "../../../store/mediaQuery"
 import {
@@ -146,23 +146,14 @@ const FilterBox = ({
 }
 // Screener Components
 function Screener() {
+  // State
   const navigate = useNavigate()
+  const isMounted = useRef(false)
   const [loading, setLoading] = useState(true)
   const [filterList, setFilterList] = useState(filterListJson)
-  const [lookup, setLookup] = useState(true)
+  const [isLookup, setIsLookup] = useState(false)
   const [data, setData] = useState([])
-  const [params, setParams] = useState({
-    pbr__gte: '0',
-    pbr__lte: '50',
-    per__gte: '0',
-    per__lte: '500',
-    eps__gte: '0',
-    eps__lte: '100',
-    bps__gte: '500',
-    bps__lte: '20000',
-    roe__gte: '0',
-    roe__lte: '300',
-  })
+  const [params, setParams] = useState({})
   const columns = [
     { accessor: "stnm", Header: "종목명", class: "title" },
     { accessor: "stcd", Header: "종목코드", class: "fixed" },
@@ -173,22 +164,6 @@ function Screener() {
     { accessor: "roe", Header: "ROE" },
     { accessor: "dvd_yld", Header: "DVD_YLD" },
   ]
-
-  // useEffect
-  useEffect(() => {
-    setLoading(true)
-    axios({
-      method: "get",
-      url: "/api/kr/valuation",
-      params: params
-    }).then(
-      res => {
-        setData([...res.data])
-        setLoading(false)
-      }
-    )
-  }, [])   // eslint-disable-line react-hooks/exhaustive-deps
-
 
   // Event
   const onClickGoBack = () => {
@@ -210,15 +185,52 @@ function Screener() {
         }
       }
     })
-    // setParams({
-    //   ...params,
-    //   [name]: value
-    // })
+  }
+
+  const changeParams = (item) => {
+    const selected = item.selected
+    const name = item.name
+    const left = item.left
+    const right = item.right
+    if (selected === true) {
+      setParams({
+        ...params,
+        [`${name}__gte`]: left,
+        [`${name}__lte`]: right
+      })
+    }
   }
 
   const onClickLookup = () => {
-    setLookup(!lookup)
+    setLoading(true)
+    setIsLookup(true)
+    setParams({})
+    for (let category in filterList) {
+      for (let items in filterList[category].list) {
+        changeParams(filterList[category].list[items])
+      }
+    }
   }
+
+  // Effect
+  useEffect(() => {
+    if (isMounted.current) {
+      async function fetchData() {
+        await axios({
+          method: "get",
+          url: "/api/kr/valuation",
+          params: params
+        }).then((res) => {
+          setData([...res.data.results])
+          // setLoading(false)
+        })
+      }
+      fetchData()
+    } else {
+      isMounted.current = true
+    }
+  }, [params])
+
 
   return (
     <div className={style.content}>
@@ -246,9 +258,11 @@ function Screener() {
         {/* table */}
         <div className={style.tableArea}>
           {
-            loading
-              ? <BarLoader cssOverride={loader_override} size={150} />
-              : <SortTable columns={columns} data={data} />
+            isLookup
+              ? <SortTable columns={columns} data={data} />
+              : !loading
+                ? <BarLoader cssOverride={loader_override} size={150} />
+                : null
           }
         </div>
       </div>
