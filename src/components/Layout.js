@@ -14,17 +14,14 @@ const Layout = () => {
           <div className={style.top}>
             <LayoutHeader />
           </div>
-          
           <div className={style.left}>
             <MainMenu />
           </div>
-          
           <div className={style.center}>
             <div className={style.content}>
               <Outlet />
             </div>
           </div>
-          
           <div className={style.right}>
           </div>
         </div>

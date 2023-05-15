@@ -1,0 +1,54 @@
+{
+  "valuation": {
+    "category": "valuation",
+    "categoryTitle": "밸류에이션",
+    "opened": true,
+    "list": {
+      "per": {
+        "name": "per",
+        "title": "주가수익률(PER)",
+        "selected": true,
+        "min": "0",
+        "max": "500",
+        "left": "0",
+        "right": "500"
+      },
+      "pbr": {
+        "name": "pbr",
+        "title": "주가순자산비율(PBR)",
+        "selected": false,
+        "min": "0",
+        "max": "50",
+        "left": "0",
+        "right": "50"
+      },
+      "eps": {
+        "name": "eps",
+        "title": "주당순이익(EPS)",
+        "selected": false,
+        "min": "0",
+        "max": "100",
+        "left": "0",
+        "right": "100"
+      },
+      "bps": {
+        "name": "bps",
+        "title": "주당순자산가치(BPS)",
+        "selected": false,
+        "min": "500",
+        "max": "200000",
+        "left": "500",
+        "right": "200000"
+      },
+      "roe": {
+        "name": "roe",
+        "title": "자기자본이익률(ROE)",
+        "selected": false,
+        "min": "0",
+        "max": "300",
+        "left": "0",
+        "right": "300"
+      }
+    }
+  }
+}

@@ -11,7 +11,6 @@ wordCloud(Highcharts)
 
 // Main Components
 const Home = () => {
-  console.log("Home")
   // useState
 
   const [loading, setLoading] = useState(true)

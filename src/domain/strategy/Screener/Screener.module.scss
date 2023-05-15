@@ -1,0 +1,158 @@
+@import "../../../styles.scss";
+
+
+.content {
+  background-color: $main-color3;
+  width: 100%;
+}
+
+.title {
+  color: $main-color6;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+}
+
+.titleButton {
+  padding-right: 10px;
+}
+
+.container {
+  background-color: $main-color1;
+  color: $main-color6;
+  padding: 10px 0;
+}
+
+//
+.filterBox {
+  background-color: $main-color3;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 20px;
+}
+
+.filterTitle {
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+.filterIcon {
+  padding-right: 10px;
+}
+
+.hr {
+  border: 1px solid $main-color6;
+  margin: 0;
+}
+
+.filterBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterList {
+  height: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.filterList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filterList::-webkit-scrollbar-thumb {
+  background-color: $main-color5;
+  border-radius: 4px;
+}
+
+.categoryHeader {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.folderIcon {
+  padding-right: 5px;
+  width: 20px;
+}
+
+.categoryTitle {
+  cursor: pointer;
+}
+
+.categoryBody {
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px 20px;
+  font-size: 18px;
+}
+
+.selectedCategoryBody {
+  background-color: $main-color2;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 20px;
+  font-size: 18px;
+}
+
+.checkBoxIcon {
+  margin-right: 5px;
+}
+
+.selectedFilterList {
+  height: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.selectedFilterList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.selectedFilterList::-webkit-scrollbar-thumb {
+  background-color: $main-color5;
+  border-radius: 4px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  background-color: $main-color2;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0px;
+}
+
+.lookupButton {
+  background-color: $main-color2;
+  color: $main-color6;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 10px;
+  padding: 10px;
+  letter-spacing: 10px;
+}
+
+.tableArea {
+  background-color: $main-color3;
+  margin-top: 10px;
+  width: 100%;
+  height: 50vh;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.tableArea::-webkit-scrollbar{
+  height: 8px;
+  width: 8px;
+}
+
+.tableArea::-webkit-scrollbar-thumb{
+  background-color: $main-color5;
+  border-radius: 4px;
+}
