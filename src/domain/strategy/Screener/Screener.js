@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
-import SortTable from "../../../components/SortTable"
+import SortTable from "./SortTable"
 import MultiSlider from "../../../components/MultiSlider"
 import { BarLoader } from "react-spinners"
 import { loader_override } from "../../../store/export_const"
@@ -164,8 +164,8 @@ function Screener() {
     roe__lte: '300',
   })
   const columns = [
-    { accessor: "stnm", Header: "종목명" },
-    { accessor: "stcd", Header: "종목코드" },
+    { accessor: "stnm", Header: "종목명", class: "title" },
+    { accessor: "stcd", Header: "종목코드", class: "fixed" },
     { accessor: "pbr", Header: "PBR" },
     { accessor: "per", Header: "PER" },
     { accessor: "eps", Header: "EPS" },
@@ -195,7 +195,7 @@ function Screener() {
     navigate(-1)
   }
 
-  const onChangeSlider = ( name, value ) => {
+  const onChangeSlider = (name, value) => {
     const names = name.split('_')
     setFilterList({
       ...filterList,
@@ -244,11 +244,13 @@ function Screener() {
           onClick={onClickLookup}>조회</div>
 
         {/* table */}
-        {
-          loading
-            ? <BarLoader cssOverride={loader_override} size={150} />
-            : <SortTable className="screenerTable" columns={columns} data={data} />
-        }
+        <div className={style.tableArea}>
+          {
+            loading
+              ? <BarLoader cssOverride={loader_override} size={150} />
+              : <SortTable columns={columns} data={data} />
+          }
+        </div>
       </div>
     </div>
   )
