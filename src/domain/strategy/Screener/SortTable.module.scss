@@ -1,0 +1,31 @@
+@import "../../../styles.scss";
+
+.table {
+  width: 900px;
+}
+
+.header{
+  background-color: $main-color2;
+  position: sticky;
+  top: 0;
+  width: 100px;
+  height: 30px;
+}
+
+.fixed {
+  background-color: $main-color2;
+  position: sticky;
+  left: 0;
+  width: 100px;
+  z-index: 2;
+}
+.fixedTd{
+  background-color: $main-color3;
+  position: sticky;
+  left: 0;
+  z-index:1;
+}
+
+.title {
+  width: 200px;
+}
