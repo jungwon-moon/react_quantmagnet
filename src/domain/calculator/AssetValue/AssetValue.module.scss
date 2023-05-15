@@ -12,7 +12,8 @@
   padding: 20px;
 }
 
-.titleButton{
+.titleButton {
+  cursor: pointer;
   padding-right: 10px;
 }
 
@@ -32,7 +33,8 @@
   height: 100px;
   width: 80%;
 }
-.headerButton{
+
+.headerButton {
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -45,14 +47,15 @@
   letter-spacing: -2px;
   width: calc(25%)
 }
-.headerIcon{
+
+.headerIcon {
   color: $main-color4;
   width: 50px;
   height: 40px;
   padding-bottom: 10px;
 }
 
-.body{
+.body {
   background-color: $main-color1;
   padding-bottom: 10px;
 }

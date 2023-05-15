@@ -14,6 +14,7 @@
 }
 
 .titleButton {
+  cursor: pointer;
   padding-right: 10px;
 }
 
@@ -27,6 +28,7 @@
 }
 
 .loginButton {
+  cursor: pointer;
   background-color: $sub-color4;
   color: $main-color6;
   border: 0;

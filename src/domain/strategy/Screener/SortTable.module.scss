@@ -1,10 +1,11 @@
 @import "../../../styles.scss";
 
+
 .table {
   width: 900px;
 }
 
-.header{
+.header {
   background-color: $main-color2;
   position: sticky;
   top: 0;
@@ -19,11 +20,12 @@
   width: 100px;
   z-index: 2;
 }
-.fixedTd{
+
+.fixedTd {
   background-color: $main-color3;
   position: sticky;
   left: 0;
-  z-index:1;
+  z-index: 1;
 }
 
 .title {

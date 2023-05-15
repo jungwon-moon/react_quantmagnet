@@ -14,6 +14,7 @@
 }
 
 .titleButton {
+  cursor: pointer;
   padding-right: 10px;
 }
 
@@ -127,6 +128,7 @@
 }
 
 .lookupButton {
+  cursor: pointer;
   background-color: $main-color2;
   color: $main-color6;
   border-radius: 10px;
@@ -142,7 +144,7 @@
   background-color: $main-color3;
   margin-top: 10px;
   width: 100%;
-  height: 50vh;
+  max-height: 60vh;
   overflow-x: auto;
   overflow-y: auto;
 }
