@@ -144,12 +144,14 @@ const FilterBox = ({
     </div>
   )
 }
+
+
 // Screener Components
 function Screener() {
   // State
   const navigate = useNavigate()
   const isMounted = useRef(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [filterList, setFilterList] = useState(filterListJson)
   const [isLookup, setIsLookup] = useState(false)
   const [data, setData] = useState([])
@@ -164,6 +166,7 @@ function Screener() {
     { accessor: "roe", Header: "ROE" },
     { accessor: "dvd_yld", Header: "DVD_YLD" },
   ]
+
 
   // Event
   const onClickGoBack = () => {
@@ -187,30 +190,21 @@ function Screener() {
     })
   }
 
-  const changeParams = (item) => {
-    const selected = item.selected
-    const name = item.name
-    const left = item.left
-    const right = item.right
-    if (selected === true) {
-      setParams({
-        ...params,
-        [`${name}__gte`]: left,
-        [`${name}__lte`]: right
-      })
-    }
-  }
-
   const onClickLookup = () => {
     setLoading(true)
     setIsLookup(true)
-    setParams({})
+    let tmp = {}
     for (let category in filterList) {
       for (let items in filterList[category].list) {
-        changeParams(filterList[category].list[items])
+        const item = filterList[category].list[items]
+        if (item.selected === true) {
+          tmp[`${item.name}__gte`] = item.left
+          tmp[`${item.name}__lte`] = item.right
+        }
       }
-    }
+    } setParams(tmp)
   }
+  
 
   // Effect
   useEffect(() => {
@@ -222,7 +216,7 @@ function Screener() {
           params: params
         }).then((res) => {
           setData([...res.data.results])
-          // setLoading(false)
+          setLoading(false)
         })
       }
       fetchData()
@@ -258,10 +252,10 @@ function Screener() {
         {/* table */}
         <div className={style.tableArea}>
           {
-            isLookup
-              ? <SortTable columns={columns} data={data} />
-              : !loading
-                ? <BarLoader cssOverride={loader_override} size={150} />
+            loading
+              ? <BarLoader cssOverride={loader_override} size={150} />
+              : isLookup
+                ? <SortTable columns={columns} data={data} />
                 : null
           }
         </div>
