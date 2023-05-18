@@ -150,7 +150,7 @@ function Screener() {
   const navigate = useNavigate()
   const isMounted = useRef(false)
   const [toggleFilter, setToggleFilter] = useState(true)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [filterList, setFilterList] = useState(filterListJson)
   const [isLookup, setIsLookup] = useState(false)
   const [data, setData] = useState([])
