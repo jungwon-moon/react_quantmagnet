@@ -1,6 +1,7 @@
 import style from "./Screener.module.scss"
 import { React, useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { Desktop, Tablet, Mobile } from "../../../store/mediaQuery"
 import {
   faChevronLeft, faFilter, faFolder, faFolderOpen
 } from "@fortawesome/free-solid-svg-icons"
@@ -10,16 +11,17 @@ import SortTable from "./SortTable"
 import MultiSlider from "../../../components/MultiSlider"
 import { BarLoader } from "react-spinners"
 import { loader_override } from "../../../store/export_const"
+
 import filterListJson from "../../../store/json/screenerFilterList.json"
+
 
 
 const FilterBox = ({
   filterList,
   setFilterList,
-  onChangeSlider,
-  toggleFilter,
-  setToggleFilter
+  onChangeSlider
 }) => {
+  const [toggleFilter, setToggleFilter] = useState(true)
 
   const onClickFilter = () => {
     setToggleFilter(!toggleFilter)
@@ -63,10 +65,10 @@ const FilterBox = ({
         <FontAwesomeIcon icon={faFilter} className={style.filterIcon} />
         종목 필터
       </div>
+      <hr className={style.hr} />
       {
         toggleFilter
           ? <>
-            <hr className={style.hr} />
             <div className={style.filterBody}>
               <div className={style.filterList}>
                 {
@@ -149,8 +151,7 @@ function Screener() {
   // State
   const navigate = useNavigate()
   const isMounted = useRef(false)
-  const [toggleFilter, setToggleFilter] = useState(true)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [filterList, setFilterList] = useState(filterListJson)
   const [isLookup, setIsLookup] = useState(false)
   const [data, setData] = useState([])
@@ -192,7 +193,6 @@ function Screener() {
   const onClickLookup = () => {
     setLoading(true)
     setIsLookup(true)
-    setToggleFilter(false)
     let tmp = {}
     for (let category in filterList) {
       for (let items in filterList[category].list) {
@@ -204,7 +204,7 @@ function Screener() {
       }
     } setParams(tmp)
   }
-
+  
 
   // Effect
   useEffect(() => {
@@ -245,8 +245,6 @@ function Screener() {
           filterList={filterList}
           setFilterList={setFilterList}
           onChangeSlider={onChangeSlider}
-          toggleFilter={toggleFilter}
-          setToggleFilter={setToggleFilter}
         />
         <div className={style.lookupButton}
           onClick={onClickLookup}>조회</div>
@@ -255,7 +253,7 @@ function Screener() {
         <div className={style.tableArea}>
           {
             loading
-              ? <BarLoader cssOverride={loader_override} size={200} />
+              ? <BarLoader cssOverride={loader_override} size={150} />
               : isLookup
                 ? <SortTable columns={columns} data={data} />
                 : null
