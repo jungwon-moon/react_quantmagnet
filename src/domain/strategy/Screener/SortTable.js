@@ -8,13 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTable, useSortBy, usePagination } from "react-table";
 
 
-// const SortTable = ({ columns, data }) => {
-
-//   return (
-//     <></>
-//   )
-
-// }
 const SortTable = ({ columns, data }) => {
   const {
     getTableProps,
