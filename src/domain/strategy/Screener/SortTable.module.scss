@@ -1,6 +1,38 @@
 @import "../../../styles.scss";
 
 
+.area {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableOver {
+  background-color: $main-color3;
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.select {
+  background-color: $main-color3;
+  color: $main-color6;
+  width: 100px;
+  padding: 3px;
+  margin-left: auto;
+}
+
+.tableOver::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.tableOver::-webkit-scrollbar-thumb {
+  background-color: $main-color5;
+  border-radius: 4px;
+}
+
 .table {
   width: 900px;
 }
@@ -30,4 +62,32 @@
 
 .title {
   width: 200px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.span {
+  font-weight: 700;
+}
+
+.input {
+  background-color: $main-color3;
+  color: $main-color6;
+  border: 0;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 700;
+  width: 30px;
+  padding: 3px;
+  margin: 0 5px;
+}
+
+.button {
+  cursor: pointer;
+  color: $main-color6;
+  width: 25px;
 }
