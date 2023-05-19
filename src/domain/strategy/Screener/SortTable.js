@@ -28,7 +28,7 @@ const SortTable = ({ columns, data }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 1, pageSize: 20 },
+      initialState: { pageIndex: 0, pageSize: 20 },
     },
     useSortBy,
     usePagination
@@ -103,7 +103,7 @@ const SortTable = ({ columns, data }) => {
           <input
             className={style.input}
             type="text"
-            defaultValue={pageIndex + 1}
+            value={pageIndex + 1}
             onChange={e => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0
               gotoPage(page)
