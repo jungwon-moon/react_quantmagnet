@@ -147,7 +147,7 @@ const StockDetails = () => {
       url: '/api/kr/stockprice/',
       params: {
         stcd__contains: stcd,
-        limit: 300
+        limit: 40
       }
     }).then(
       res => {
