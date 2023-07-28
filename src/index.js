@@ -2,7 +2,7 @@ import App from './App'
 import ReactGA from 'react-ga4'
 import './index.css'
 
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 
@@ -12,13 +12,12 @@ import store from './store/store'
 const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID
 ReactGA.initialize(TRACKING_ID)
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"))
+root.render(
   <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>,
-  document.getElementById('root')
-);
-
+)
 reportWebVitals();

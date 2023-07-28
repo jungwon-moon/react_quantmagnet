@@ -1,9 +1,12 @@
 import style from "./StockDetails.module.scss"
+import axios from "axios"
 import { React, useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { comma } from '../utils/utils'
 import Chart from "react-apexcharts"
-import axios from "axios"
+
 import outputListJson from "../store/json/stockDetailsOutputList.json"
 
 
@@ -26,6 +29,7 @@ const TableRow = ({ title, variable, price, details }) => {
     "roe": resultNotNull(comma(details.roe)),
     "dvd_yld": resultNotNull(comma(details.dvd_yld)),
   }
+
   return (
     <div className={style.tableRow}>
       <div>{title}</div>
@@ -109,6 +113,10 @@ const StockDetailBody = ({ details, price, prices }) => {
 // Main Components
 const StockDetails = () => {
   // useState
+  const navigate = useNavigate()
+  const onClickGoBack = () => {
+    navigate(-1)
+  }
   const stcd = useParams().stcd
   const [price, setPrice] = useState([{}])
   const [prices, setPrices] = useState([{
@@ -139,7 +147,7 @@ const StockDetails = () => {
       url: '/api/kr/stockprice/',
       params: {
         stcd__contains: stcd,
-        limit: 300
+        limit: 40
       }
     }).then(
       res => {
@@ -152,12 +160,18 @@ const StockDetails = () => {
 
   return (
     <div className={style.content}>
+      <div className={style.title}>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          className={style.titleButton}
+          onClick={onClickGoBack}
+        />
+        주식 상세 정보
+      </div>
       <StockDetailHeader details={details} price={price} />
       <StockDetailBody details={details} price={price} prices={prices} />
     </div>
   )
 }
-
-
 
 export default StockDetails

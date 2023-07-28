@@ -6,18 +6,30 @@
   width: 100%;
 }
 
+.title {
+  color: $main-color6;
+  font-size: 26px;
+  font-weight: 600;
+  padding: 20px;
+}
+
+.titleButton {
+  cursor: pointer;
+  padding-right: 10px;
+}
+
 .header {
   display: flex;
   flex-direction: column;
 }
 
-.symbolArea{
+.symbolArea {
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
 }
 
-.symbolBox{
+.symbolBox {
   color: $main-color6;
   background-color: $main-color2;
   border-radius: 10px;
@@ -27,7 +39,7 @@
   margin-right: 10px;
 }
 
-.stockName{
+.stockName {
   padding: 7px 10px;
   font-size: 20px;
   font-weight: 800;
@@ -38,40 +50,41 @@
   border-radius: 10px;
   padding: 20px;
   margin: 10px;
-  margin-top:0;
+  margin-top: 0;
 }
 
-.priceArea{
+.priceArea {
   display: flex;
   padding: 10px;
   align-items: center;
 }
 
-.priceBox{
+.priceBox {
   font-size: 25px;
   font-weight: 700;
 }
 
-.pricePlus{
+.pricePlus {
   color: $sub-color2;
 }
 
-.priceMinus{
+.priceMinus {
   color: $sub-color3;
 }
 
-.prevBox{
+.prevBox {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
 }
 
-.contentTable{
+.contentTable {
   background-color: $main-color3;
   border-radius: 10px;
   padding: 10px;
 }
-.tableRow{
+
+.tableRow {
   display: flex;
   justify-content: space-between;
   font-size: 20px;
