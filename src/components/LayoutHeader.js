@@ -13,7 +13,7 @@ import stockListJson from "../store/json/stockList.json"
 
 
 const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress, onBlur,
-  onMouseDown, onMouseOver, searchItems, searchItemsIndex, onClickXmark }) => {
+  onMouseDown, onMouseOver, searchItems, searchItemsIndex, recentSearches, onClickXmark }) => {
 
   return (
     <div className={style.searchBox}>
@@ -24,51 +24,77 @@ const Search = ({ style, isDropDown, searchWord, onChange, onKeyPress, onBlur,
         onKeyUp={onKeyPress}
         placeholder={'검색'} />
       <FontAwesomeIcon icon={faXmark} className={style.searchBoxXMark} onClick={onClickXmark} />
-      {isDropDown && searchItems.length !== 0
-        ? <SearchItems
-          style={style}
-          onBlur={onBlur}
-          onMouseDown={onMouseDown}
-          onMouseOver={onMouseOver}
-          searchItems={searchItems}
-          searchItemsIndex={searchItemsIndex}
-        />
-        : null
+      {
+        isDropDown
+          ? <SearchItems
+            style={style}
+            onBlur={onBlur}
+            onMouseDown={onMouseDown}
+            onMouseOver={onMouseOver}
+            searchItems={searchItems}
+            searchItemsIndex={searchItemsIndex}
+            recentSearches={recentSearches}
+          />
+          : null
       }
     </div>
   )
 }
 
-const SearchItems = ({ style, onBlur, onMouseDown,
-  onMouseOver, searchItems, searchItemsIndex }) => {
+const SearchItems = ({ style, onBlur, onMouseDown, onMouseOver,
+  searchItems, searchItemsIndex, recentSearches }) => {
   return (
-    <ul className={style.searchItems} onClick={onBlur}>
-      {searchItems.map((item, index) => (
-        <div className={style.searchItem} key={index}
-          onMouseDown={() => onMouseDown(item)}
-          onMouseEnter={() => onMouseOver(index)}>
-          {searchItemsIndex === index
-            ? <div className={style.searchItemFocus}>
-                {item.stcd}   {item.stnm}
-              </div>
-            : <div>
-                {item.stcd}   {item.stnm}
-            </div>
-          }
-        </div>
-      ))}
-    </ul>
+    <>
+      {/* isDropDown True */}
+      {
+        searchItems.length !== 0
+          ? <ul className={style.searchItems} onClick={onBlur}>
+            {
+              searchItems.map((item, index) => (
+                <div className={style.searchItem} key={index}
+                  onMouseDown={() => onMouseDown(item)}
+                  onMouseEnter={() => onMouseOver(index)}>
+                  {
+                    searchItemsIndex === index
+                      ? <div className={style.searchItemFocus}>
+                        {item.stcd} {item.stnm}
+                      </div>
+                      : <div>
+                        {item.stcd} {item.stnm}
+                      </div>
+                  }
+                </div>
+              ))}
+          </ul>
+          : <>
+            {/* <ul className={style.searchItems} onClick={onBlur}></ul>
+            {
+              recentSearches.map((item, index) => (
+                <div className={style.searchItem} key={index}
+                  onMouseDown={() => onMouseDown(item)}
+                  onMouseEnter={() => onMouseOver(index)}
+                >
+                  <div>
+                    {item.stcd}   {item.stnm}
+                  </div>
+                </div>
+              ))
+            } */}
+          </>
+      }
+    </>
   )
 }
 
 
 // Main Components
-const LayoutHeader = () => {
+const LayoutHeader = ({ recentSearches, setRecentSearches }) => {
   // useState
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [isMenu, setIsMenu] = useState(false)
+  // Search 동작유무. 모바일 환경에서만 사용.
   const [isSearch, setIsSearch] = useState(false)
   const [isDropDown, setIsDropDown] = useState(false)
   const [searchWord, setSearchWord] = useState("")
@@ -100,6 +126,10 @@ const LayoutHeader = () => {
 
   useEffect(setList, [searchWord])
 
+  useEffect(() => {
+    localStorage.setItem("recentSearches", JSON.stringify(recentSearches))
+  }, [recentSearches])
+
 
   // Events
   const onToggleMenu = () => {
@@ -114,6 +144,7 @@ const LayoutHeader = () => {
   }
 
   const onMouseDownDropDownItem = (clickedItem) => {
+    handleAddRecentSearches(clickedItem)
     navigate(`/stockdetails/${clickedItem.stcd}`)
   }
 
@@ -136,6 +167,7 @@ const LayoutHeader = () => {
   }
 
   const onMouseOverSearch = (item) => {
+    setIsDropDown(true)
     setStockListIndex(item)
   }
 
@@ -161,10 +193,30 @@ const LayoutHeader = () => {
         break
 
       case "Escape":
+        e.target.blur()
         break
       // no default
     }
   }
+  const handleAddRecentSearches = (stock) => {
+    const item = {
+      stcd: stock.stcd,
+      stnm: stock.stnm
+    }
+    // 최초 실행
+    if (recentSearches === null) {
+      setRecentSearches([item])
+    } else {
+      // 중복 확인
+      const arr = [item, ...recentSearches]
+      const result = arr.filter((v, i) =>
+        arr.findIndex(x => x.stcd === v.stcd) === i)
+      // 길이 제한
+      result.length = 5
+      setRecentSearches(result.filter(i => i !== null))
+    }
+  }
+
 
   // render
   const desktopAndTablet = (
@@ -189,6 +241,7 @@ const LayoutHeader = () => {
             onClickXmark={onClickXmark}
             searchItems={stockList}
             searchItemsIndex={stockListIndex}
+            recentSearches={recentSearches}
           />
         </div>
       </div>
@@ -200,6 +253,7 @@ const LayoutHeader = () => {
       </div>
     </div>
   )
+
   const mobile = (
     <div className={style.headerM}>
       <div className={style.leftM}>
@@ -222,7 +276,9 @@ const LayoutHeader = () => {
             onMouseOver={onMouseOverSearch}
             onClickXmark={onClickXmark}
             searchItems={stockList}
-            searchItemsIndex={stockListIndex} />
+            searchItemsIndex={stockListIndex}
+            recentSearches={recentSearches}
+          />
           : <Link to="" className={style.centerM}>QuantMagnet</Link>
       }
       <div className={style.rightM}>
