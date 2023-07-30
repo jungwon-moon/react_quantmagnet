@@ -2,6 +2,7 @@
 
 .recentSearches {
     display: flex;
+    flex-direction: column;
     background-color: $main-color2;
     border-radius: 10px;
     padding: 20px;
@@ -17,7 +18,7 @@
 .item {
     display: flex;
     position: relative;
-    padding: 10px 0 0 0;
+    padding-top: 10px;
     color: $main-color6;
 }
 
@@ -31,4 +32,9 @@
 .itemStnm {
     position: relative;
     left: 10px;
+}
+
+.noneItem {
+    color: $main-color5;
+    padding-top: 10px;
 }

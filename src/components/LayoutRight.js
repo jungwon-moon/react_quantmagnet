@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 const LayoutRight = ({ recentSearches, setRecentSearches }) => {
   return (
     <div className={style.recentSearches}>
+      <div className={style.title}>최근 검색 내역</div>
       {
         recentSearches
-          ? <div>
-            <div className={style.title}>최근 검색 내역</div>
+          ? <>
             {
               Object.keys(recentSearches).map((item, index) => (
                 <Link
@@ -20,8 +20,8 @@ const LayoutRight = ({ recentSearches, setRecentSearches }) => {
                 </Link>
               ))
             }
-          </div>
-          : null
+          </>
+          : <div className={style.noneItem}>검색 내역이 없습니다.</div>
       }
     </div>
   )
