@@ -4,6 +4,8 @@ import { React, useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { BarLoader } from "react-spinners"
+import { loader_override } from "../store/export_const"
 import { comma } from '../utils/utils'
 import Chart from "react-apexcharts"
 
@@ -118,6 +120,7 @@ const StockDetails = () => {
     navigate(-1)
   }
   const stcd = useParams().stcd
+  const [loading, setLoading] = useState(true)
   const [price, setPrice] = useState([{}])
   const [prices, setPrices] = useState([{
     date: '000000', stcd: "000000"
@@ -127,6 +130,7 @@ const StockDetails = () => {
 
   // useEffect
   useEffect(() => {
+    setLoading(true)
     axios({
       method: 'get',
       url: '/api/kr/val-det/',
@@ -146,14 +150,15 @@ const StockDetails = () => {
       method: 'get',
       url: '/api/kr/stockprice/',
       params: {
-        stcd__contains: stcd,
-        limit: 40
+        stcd: stcd,
+        limit: 100
       }
     }).then(
       res => {
         const data = res.data.results.reverse()
         setPrice(data[data.length - 1])
         setPrices(data.slice())
+        setLoading(false)
       }
     )
   }, [stcd])
@@ -168,8 +173,14 @@ const StockDetails = () => {
         />
         주식 상세 정보
       </div>
-      <StockDetailHeader details={details} price={price} />
-      <StockDetailBody details={details} price={price} prices={prices} />
+      {
+        loading
+          ? <BarLoader cssOverride={loader_override} size={200} />
+          : <>
+            <StockDetailHeader details={details} price={price} />
+            <StockDetailBody details={details} price={price} prices={prices} />
+          </>
+      }
     </div>
   )
 }
