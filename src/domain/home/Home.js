@@ -1,5 +1,7 @@
 import style from "./Home.module.scss"
 import { useState, useEffect } from "react"
+import { comma } from "../../utils/utils"
+import { Link } from "react-router-dom"
 import axios from "axios"
 import Highcharts from "highcharts"
 import wordCloud from "highcharts/modules/wordcloud.js"
@@ -12,20 +14,29 @@ wordCloud(Highcharts)
 const StockListCard = ({ title, data }) => {
   return (
     <div className={style.stockListCard}>
-      <div>{title}</div>
+      <div className={style.SLCTitle}>{title}</div>
+      <div className={style.SLCHeader}>
+        <div className={style.SLCItem1}>종목코드</div>
+        <div className={style.SLCItem2}>종목명</div>
+        <div className={style.SLCItem1}>변동률</div>
+        <div className={style.SLCItem3}>종가</div>
+        <div className={style.SLCItem2}>거래대금</div>
+      </div>
       {
         data
           ? <>
             {
               data.map((item, index) => (
-                <div key={index}>
-                  {
-                    index === 10
-                      ? <>------------------</>
-                      : null
-                  }
-                  {item.stnm} {item.stcd}
-                </div>
+                <Link
+                  className={style.SLCItems}
+                  to={`/stockdetails/${item.stcd}`}
+                  key={index}>
+                  <div className={style.SLCItem1}>{item.stcd}</div>
+                  <div className={style.SLCItem2}>{item.stnm}</div>
+                  <div className={style.SLCItem1}>{item.rate} %</div>
+                  <div className={style.SLCItem3}>{comma(item.close)}</div>
+                  <div className={style.SLCItem2}>{comma(item.value)}</div>
+                </Link>
               ))
             }
           </>
@@ -38,11 +49,12 @@ const StockListCard = ({ title, data }) => {
 // Main Components
 const Home = () => {
   // useState
-
   const [cloudLoading, setCloudLoading] = useState(true)
   const [data, setData] = useState('')
   const [gains, setGains] = useState('')
   const [losers, setLosers] = useState('')
+  const [values, setValues] = useState('')
+
   const options = {
     chart: {
       backgroundColor: '#202020',
@@ -54,7 +66,7 @@ const Home = () => {
     }],
     title: {
       text: "<b>경제 뉴스 키워드</b>",
-      style: { "color": "#e9e9e9", "fontSize": "30px" }
+      style: { "color": "#e9e9e9", "fontSize": "25px" }
     },
     accessibility: {
       enabled: false
@@ -103,8 +115,20 @@ const Home = () => {
     }).then(
       res => {
         const results = res.data
-        setGains(results.slice(0, 20))
-        setLosers(results.slice(-20))
+        setGains(results.slice(0, 10))
+        setLosers(results.slice(-10).reverse())
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "/api/kr/soaringvalue"
+    }).then(
+      res => {
+        const results = res.data
+        setValues(results)
       }
     )
   }, [])
@@ -112,12 +136,15 @@ const Home = () => {
   return (
     <div className={style.home}>
       <div className={style.contents}>
-        {
-          cloudLoading ? <BarLoader cssOverride={loader_override} size={150} />
-            : <HighchartsReact highcharts={Highcharts} options={options} />
-        }
+        <div className={style.wordCloud}>
+          {
+            cloudLoading ? <BarLoader cssOverride={loader_override} size={150} />
+              : <HighchartsReact highcharts={Highcharts} options={options} />
+          }
+        </div>
         <StockListCard title="급등주" data={gains} />
         <StockListCard title="급락주" data={losers} />
+        <StockListCard title="거래대금 급등주" data={values} />
       </div>
     </div>
   )

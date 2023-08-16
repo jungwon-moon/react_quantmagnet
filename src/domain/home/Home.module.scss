@@ -7,11 +7,52 @@
 }
 
 .contents {
-  background-color: $main-color2;
-  border-radius: 10px;
+  background-color: $main-color3;
   padding: 20px;
 }
 
-.stockListCard{
-  background-color: red;
+.wordCloud {
+  background-color: $main-color2;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.stockListCard {
+  display: flex;
+  flex-direction: column;
+  color: $main-color6;
+  background-color: $main-color2;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.SLCTitle {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.SLCItems, .SLCHeader {
+  color: $main-color6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+.SLCItems:hover{
+  color: $main-color5;
+}
+
+.SLCItem1 {
+  flex-basis: 65px;
+  padding-right: 10px;
+}
+
+.SLCItem2 {
+  flex-basis: 120px;
+}
+
+.SLCItem3 {
+  flex-basis: 50px;
 }
