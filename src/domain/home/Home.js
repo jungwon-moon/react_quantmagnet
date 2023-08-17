@@ -16,11 +16,11 @@ const StockListCard = ({ title, data }) => {
     <div className={style.stockListCard}>
       <div className={style.SLCTitle}>{title}</div>
       <div className={style.SLCHeader}>
-        <div className={style.SLCItem1}>종목코드</div>
-        <div className={style.SLCItem2}>종목명</div>
-        <div className={style.SLCItem1}>변동률</div>
-        <div className={style.SLCItem3}>종가</div>
-        <div className={style.SLCItem2}>거래대금</div>
+        <div className={`${style.SLCItem1} ${style.textCenter}`}>종목코드</div>
+        <div className={`${style.SLCItem2} ${style.textCenter}`}>종목명</div>
+        <div className={`${style.SLCItem1} ${style.textCenter}`}>변동률</div>
+        <div className={`${style.SLCItem3} ${style.textCenter}`}>종가</div>
+        <div className={`${style.SLCItem2} ${style.textCenter}`}>거래대금</div>
       </div>
       {
         data
@@ -33,9 +33,9 @@ const StockListCard = ({ title, data }) => {
                   key={index}>
                   <div className={style.SLCItem1}>{item.stcd}</div>
                   <div className={style.SLCItem2}>{item.stnm}</div>
-                  <div className={style.SLCItem1}>{item.rate} %</div>
-                  <div className={style.SLCItem3}>{comma(item.close)}</div>
-                  <div className={style.SLCItem2}>{comma(item.value)}</div>
+                  <div className={`${style.SLCItem1} ${style.textRight}`}>{item.rate} %</div>
+                  <div className={`${style.SLCItem3} ${style.textRight}`}>{comma(item.close)}</div>
+                  <div className={`${style.SLCItem2} ${style.textRight}`}>{comma(item.value)}</div>
                 </Link>
               ))
             }
@@ -111,7 +111,7 @@ const Home = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: "/api/kr/gains-losers"
+      url: "/api/kr/gainers-losers"
     }).then(
       res => {
         const results = res.data
@@ -142,8 +142,8 @@ const Home = () => {
               : <HighchartsReact highcharts={Highcharts} options={options} />
           }
         </div>
-        <StockListCard title="급등주" data={gains} />
-        <StockListCard title="급락주" data={losers} />
+        <StockListCard title="상승률" data={gains} />
+        <StockListCard title="하락률" data={losers} />
         <StockListCard title="거래대금 급등주" data={values} />
       </div>
     </div>

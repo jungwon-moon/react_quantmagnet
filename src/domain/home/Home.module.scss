@@ -33,14 +33,16 @@
   padding: 10px;
 }
 
-.SLCItems, .SLCHeader {
+.SLCItems,
+.SLCHeader {
   color: $main-color6;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 5px 10px;
 }
-.SLCItems:hover{
+
+.SLCItems:hover {
   color: $main-color5;
 }
 
@@ -50,9 +52,17 @@
 }
 
 .SLCItem2 {
-  flex-basis: 120px;
+  flex-basis: 130px;
 }
 
 .SLCItem3 {
   flex-basis: 50px;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textCenter {
+  text-align: center;
 }
