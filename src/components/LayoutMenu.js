@@ -2,14 +2,15 @@ import style from "./LayoutMenu.module.scss"
 import { Link } from "react-router-dom"
 import { Desktop, Tablet, Mobile } from "../store/mediaQuery"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHouse, faCalculator, faMagnifyingGlassChart } from "@fortawesome/free-solid-svg-icons"
+import { faHouse, faCalculator, faSquarePollVertical, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import menuListJson from "../store/json/menuList.json"
 import footerJson from "../store/json/footer.json"
 
 const menuIcons = [
   faHouse,
   faCalculator,
-  faMagnifyingGlassChart
+  faSquarePollVertical,
+  faMagnifyingGlass
 ]
 
 //Components

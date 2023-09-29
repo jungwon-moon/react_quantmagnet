@@ -1,7 +1,7 @@
 import style from "./LayoutRight.module.scss"
 import { Link } from "react-router-dom"
 
-const LayoutRight = ({ recentSearches, setRecentSearches }) => {
+const LayoutRight = ({ recentSearches }) => {
   return (
     <div className={style.recentSearches}>
       <div className={style.title}>최근 검색 내역</div>

@@ -11,38 +11,42 @@ import { loader_override } from "../../store/export_const"
 
 wordCloud(Highcharts)
 
-const StockListCard = ({ title, data }) => {
+const StockListCard = ({ title, data, path }) => {
   return (
     <div className={style.stockListCard}>
-      <div className={style.SLCTitle}>{title}</div>
+      <Link
+        className={style.SLCTitle}
+        to={path}
+      >{title}</Link>
       <div className={style.SLCHeader}>
         <div className={`${style.SLCItem1} ${style.textCenter}`}>종목코드</div>
         <div className={`${style.SLCItem2} ${style.textCenter}`}>종목명</div>
         <div className={`${style.SLCItem1} ${style.textCenter}`}>변동률</div>
         <div className={`${style.SLCItem3} ${style.textCenter}`}>종가</div>
-        <div className={`${style.SLCItem2} ${style.textCenter}`}>거래대금</div>
+        <div className={`${style.SLCItem4} ${style.textCenter}`}>거래대금</div>
       </div>
       {
-        data
-          ? <>
-            {
-              data.map((item, index) => (
-                <Link
-                  className={style.SLCItems}
-                  to={`/stockdetails/${item.stcd}`}
-                  key={index}>
-                  <div className={style.SLCItem1}>{item.stcd}</div>
-                  <div className={style.SLCItem2}>{item.stnm}</div>
-                  <div className={`${style.SLCItem1} ${style.textRight}`}>{item.rate} %</div>
-                  <div className={`${style.SLCItem3} ${style.textRight}`}>{comma(item.close)}</div>
-                  <div className={`${style.SLCItem2} ${style.textRight}`}>{comma(item.value)}</div>
-                </Link>
-              ))
-            }
-          </>
+        data ? <> {
+          data.slice(0, 10).map((item, index) => (
+            <Link
+              className={style.SLCItems}
+              to={`/stockdetails/${item.stcd}`}
+              key={index}>
+              <div className={style.SLCItem1}>{item.stcd}</div>
+              <div className={style.SLCItem2}>{item.stnm}</div>
+              <div className={`${style.SLCItem1} ${style.textRight}`}>{item.rate} %</div>
+              <div className={`${style.SLCItem3} ${style.textRight}`}>{comma(item.close)}</div>
+              <div className={`${style.SLCItem4} ${style.textRight}`}>{comma(item.value)}</div>
+            </Link>
+          ))
+        }
+        </>
           : <>해당 종목이 없습니다.</>
       }
-    </div>
+      <Link
+        className={style.SLCFooter}
+        to={path}>더보기</Link>
+    </div >
   )
 }
 
@@ -142,9 +146,9 @@ const Home = () => {
               : <HighchartsReact highcharts={Highcharts} options={options} />
           }
         </div>
-        <StockListCard title="상승률" data={gains} />
-        <StockListCard title="하락률" data={losers} />
-        <StockListCard title="거래대금 급등주" data={values} />
+        <StockListCard title="상승률" path="./trend/gainers-losers" data={gains} />
+        <StockListCard title="하락률" path="./trend/gainers-losers" data={losers} />
+        <StockListCard title="거래대금 급등주" path="./trend/soaringvalue" data={values} />
       </div>
     </div>
   )

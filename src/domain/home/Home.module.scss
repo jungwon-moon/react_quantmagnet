@@ -20,6 +20,7 @@
 .stockListCard {
   display: flex;
   flex-direction: column;
+  font-size: 15px;
   color: $main-color6;
   background-color: $main-color2;
   border-radius: 10px;
@@ -28,6 +29,7 @@
 }
 
 .SLCTitle {
+  color: $main-color6;
   font-size: 22px;
   font-weight: 600;
   padding: 10px;
@@ -52,11 +54,15 @@
 }
 
 .SLCItem2 {
-  flex-basis: 130px;
+  flex-basis: 115px;
 }
 
 .SLCItem3 {
   flex-basis: 50px;
+}
+
+.SLCItem4 {
+  flex-basis: 130px;
 }
 
 .textRight {
@@ -65,4 +71,19 @@
 
 .textCenter {
   text-align: center;
+}
+
+.SLCFooter {
+  color: $main-color6;
+  border: solid 1px $main-color3;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.SLCFooter:hover {
+  background-color: $main-color3;
 }
