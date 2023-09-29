@@ -15,6 +15,10 @@ import Screener from './domain/strategy/Screener/Screener'
 import Valuation from './domain/strategy/Valuation/Valuation'
 import TechnicalIndicator from './domain/strategy/TechnicalIndicator/TechnicalIndicator'
 
+import Trend from "./domain/trend/Trend"
+import GainersLosers from './domain/trend/GainersLosers/GainersLosers'
+import SoaringValue from './domain/trend/SoaringValue/SoaringValue'
+
 import Calculator from './domain/calculator/Calculator'
 import AssetValue from './domain/calculator/AssetValue/AssetValue'
 
@@ -28,7 +32,7 @@ function AppRoutes() {
     <Routes>
       <Route path="" element={<Layout />} >
         <Route path="/" element={<Home />} />
-        
+
         {authenticated === false
           ? <>
             <Route path="login" element={<LoginPage />} />
@@ -46,6 +50,10 @@ function AppRoutes() {
         <Route path="strategy/screener" element={<Screener />} />
         <Route path="strategy/technicalindicator" element={<TechnicalIndicator />} />
         <Route path="strategy/valuation" element={<Valuation />} />
+
+        <Route path="trend" element={<Trend />} />
+        <Route path="trend/gainers-losers" element={<GainersLosers />} />
+        <Route path="trend/soaringvalue" element={<SoaringValue />} />
 
         <Route path="calculator" element={<Calculator />} />
         <Route path="calculator/assetvalue" element={<AssetValue />} />

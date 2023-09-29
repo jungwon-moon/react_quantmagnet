@@ -8,8 +8,14 @@
   {
     "title": "투자전략",
     "link": "/strategy",
-    "icon": "faMagnifyingGlassChart",
-    "iconName": "magnifying-glass-chart"
+    "icon": "faMagnifyingGlass",
+    "iconName": "magnifying-glass"
+  },
+  {
+    "title": "증시동향",
+    "link": "/trend",
+    "icon": "faSquarePollVertical",
+    "iconName": "square-poll-vertical"
   },
   {
     "title": "계산기",
