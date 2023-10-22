@@ -1,0 +1,39 @@
+@import "../../../styles.scss";
+
+.content {
+  display: flex;
+  padding: 20px;
+  padding-bottom: 10px;
+  width: 100%;
+  color: $main-color6;
+  background: $main-color3;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  padding: 0 0 20px 0;
+}
+
+.titleButton {
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.text1 {
+  padding: 10px;
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+.comt1 {
+  padding: 5px;
+  padding-top: 10px;
+}
+
+.comt1>p {
+  font-size: 12px;
+  margin: 0;
+  text-align: right;
+}

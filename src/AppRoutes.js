@@ -12,8 +12,10 @@ import RegisterPage from './auth/RegisterPage'
 
 import Strategy from './domain/strategy/Strategy'
 import Screener from './domain/strategy/Screener/Screener'
-import Valuation from './domain/strategy/Valuation/Valuation'
-import TechnicalIndicator from './domain/strategy/TechnicalIndicator/TechnicalIndicator'
+// import Valuation from './domain/strategy/Valuation/Valuation'
+import PerPbrSmall from './domain/strategy/Validation/PerPbrSmall'
+import PerRoeSmall from './domain/strategy/Validation/PerRoeSmall'
+// import TechnicalIndicator from './domain/strategy/TechnicalIndicator/TechnicalIndicator'
 
 import Trend from "./domain/trend/Trend"
 import GainersLosers from './domain/trend/GainersLosers/GainersLosers'
@@ -48,8 +50,10 @@ function AppRoutes() {
 
         <Route path="strategy" element={<Strategy />} />
         <Route path="strategy/screener" element={<Screener />} />
-        <Route path="strategy/technicalindicator" element={<TechnicalIndicator />} />
-        <Route path="strategy/valuation" element={<Valuation />} />
+        {/* <Route path="strategy/technicalindicator" element={<TechnicalIndicator />} /> */}
+        {/* <Route path="strategy/valuation" element={<Valuation />} /> */}
+        <Route path="strategy/validation/per_pbr_small" element={<PerPbrSmall />} />
+        <Route path="strategy/validation/per_roe_small" element={<PerRoeSmall />} />
 
         <Route path="trend" element={<Trend />} />
         <Route path="trend/gainers-losers" element={<GainersLosers />} />
