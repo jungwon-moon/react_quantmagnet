@@ -82,7 +82,6 @@ const ValidationCard = ({ data }) => {
 				</div>
 			</div>
 
-			{console.log(data)}
 			<div className={styles.card}>
 				누적 수익률 차트
 				<Line

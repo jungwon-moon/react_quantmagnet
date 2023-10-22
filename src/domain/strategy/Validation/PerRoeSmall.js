@@ -28,7 +28,7 @@ const PerRoeSmall = () => {
           멀티팩터 PER-PBR-소형주
         </div>
         <div className={styles.text1}>
-          저PER, 저PBR, 소형주 종목을 3개월 마다 리밸런싱을 실시한다.
+          기간(<b>2018-01~2023-01</b>)동안 <b>저PER, 고ROE, 소형주</b>에 해당하는 종목을 <b>3개월</b> 마다 리밸런싱을 실시합니다.
         </div>
         <div className={styles.comt1}>
           <p>수수료(0.015%)+거래세(0.02%)+슬리피지(1%)</p>
